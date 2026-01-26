@@ -16,7 +16,7 @@ A modern, accessible personal portfolio website built with Next.js, TypeScript, 
 
 ## Tech Stack
 
-- **Framework:** Next.js 14+ with TypeScript
+- **Framework:** Next.js 16 with TypeScript
 - **Styling:** Tailwind CSS 4
 - **Animation:** Framer Motion
 - **Deployment:** GitHub Pages
