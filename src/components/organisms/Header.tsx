@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navigation, siteConfig } from '@/data/config';
 
@@ -8,11 +8,16 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [isScrolled, setIsScrolled] = useState(false);
+  const isProgrammaticScroll = useRef(false);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setIsScrolled(scrollPosition > 50);
+
+      // Skip section detection during programmatic scrolling
+      if (isProgrammaticScroll.current) return;
 
       // Update active section based on scroll position
       const sections = ['hero', 'about', 'projects', 'articles', 'contact'];
@@ -39,11 +44,24 @@ export function Header() {
     const targetId = href.replace('#', '');
     setIsOpen(false);
     
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current);
+    }
+    
+    // Block scroll listener and set active section immediately
+    isProgrammaticScroll.current = true;
+    setActiveSection(targetId);
+    
     // Small delay to allow menu to close before scrolling
     setTimeout(() => {
       const element = document.getElementById(targetId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
+        
+        // Re-enable scroll listener after scrolling completes
+        scrollTimeout.current = setTimeout(() => {
+          isProgrammaticScroll.current = false;
+        }, 1500);
       }
     }, 100);
   };
@@ -90,7 +108,6 @@ export function Header() {
                   <motion.div
                     layoutId="activeSection"
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-slate-900 dark:bg-slate-100"
-                    initial={false}
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
