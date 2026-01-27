@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { personalInfo } from '@/data/config';
 import { AnimatedSection } from '@/components/atoms/AnimatedSection';
 
