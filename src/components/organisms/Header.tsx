@@ -37,11 +37,15 @@ export function Header() {
 
   const scrollToSection = (href: string) => {
     const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
     setIsOpen(false);
+    
+    // Small delay to allow menu to close before scrolling
+    setTimeout(() => {
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   return (
@@ -60,7 +64,7 @@ export function Header() {
           {/* Logo */}
           <motion.button
             onClick={() => scrollToSection('#hero')}
-            className="text-xl font-bold text-slate-900 dark:text-slate-100 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            className="text-xl font-bold text-slate-900 dark:text-slate-100 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -73,7 +77,7 @@ export function Header() {
               <motion.button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors ${
+                className={`relative px-3 py-2 text-sm font-medium transition-colors cursor-pointer ${
                   activeSection === item.href.replace('#', '')
                     ? 'text-slate-900 dark:text-slate-100'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'

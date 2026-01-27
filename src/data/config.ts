@@ -7,6 +7,7 @@ export const siteConfig = {
   description: 'A passionate software engineer building modern web applications',
   url: 'https://yourusername.github.io',
   ogImage: '/og-image.jpg',
+  profileImage: '', // Add your profile image path here, e.g., '/profile.jpg'
   links: {
     github: 'https://github.com/yourusername',
     linkedin: 'https://linkedin.com/in/yourusername',
