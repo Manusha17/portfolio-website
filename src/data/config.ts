@@ -1,5 +1,5 @@
 // Portfolio configuration and static data
-import { TimelineItem } from '@/types';
+import { TimelineItem, SkillCategory, ProficiencyLevel } from '@/types';
 
 export const siteConfig = {
   name: 'Your Name',
@@ -97,4 +97,104 @@ export const timelineData: TimelineItem[] = [
     color: '#8B5CF6'
   }
   // Add more timeline items as needed
+];
+
+// Sample skills data - replace with your actual skills
+export const skillsData: SkillCategory[] = [
+  {
+    id: 'frontend',
+    name: 'Frontend Development',
+    skills: [
+      {
+        id: 'react',
+        name: 'React',
+        proficiency: ProficiencyLevel.ADVANCED,
+        yearsOfExperience: 3
+      },
+      {
+        id: 'nextjs',
+        name: 'Next.js',
+        proficiency: ProficiencyLevel.ADVANCED,
+        yearsOfExperience: 2
+      },
+      {
+        id: 'typescript',
+        name: 'TypeScript',
+        proficiency: ProficiencyLevel.ADVANCED,
+        yearsOfExperience: 3
+      },
+      {
+        id: 'tailwind',
+        name: 'Tailwind CSS',
+        proficiency: ProficiencyLevel.EXPERT,
+        yearsOfExperience: 2
+      },
+      {
+        id: 'javascript',
+        name: 'JavaScript',
+        proficiency: ProficiencyLevel.EXPERT,
+        yearsOfExperience: 4
+      }
+    ]
+  },
+  {
+    id: 'backend',
+    name: 'Backend Development',
+    skills: [
+      {
+        id: 'nodejs',
+        name: 'Node.js',
+        proficiency: ProficiencyLevel.ADVANCED,
+        yearsOfExperience: 3
+      },
+      {
+        id: 'python',
+        name: 'Python',
+        proficiency: ProficiencyLevel.INTERMEDIATE,
+        yearsOfExperience: 2
+      },
+      {
+        id: 'postgresql',
+        name: 'PostgreSQL',
+        proficiency: ProficiencyLevel.INTERMEDIATE,
+        yearsOfExperience: 2
+      },
+      {
+        id: 'mongodb',
+        name: 'MongoDB',
+        proficiency: ProficiencyLevel.INTERMEDIATE,
+        yearsOfExperience: 2
+      }
+    ]
+  },
+  {
+    id: 'tools',
+    name: 'Tools & Technologies',
+    skills: [
+      {
+        id: 'git',
+        name: 'Git',
+        proficiency: ProficiencyLevel.ADVANCED,
+        yearsOfExperience: 4
+      },
+      {
+        id: 'docker',
+        name: 'Docker',
+        proficiency: ProficiencyLevel.INTERMEDIATE,
+        yearsOfExperience: 1
+      },
+      {
+        id: 'aws',
+        name: 'AWS',
+        proficiency: ProficiencyLevel.INTERMEDIATE,
+        yearsOfExperience: 1
+      },
+      {
+        id: 'figma',
+        name: 'Figma',
+        proficiency: ProficiencyLevel.INTERMEDIATE,
+        yearsOfExperience: 2
+      }
+    ]
+  }
 ];

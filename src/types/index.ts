@@ -1,5 +1,12 @@
 // Core data interfaces for the portfolio website
 
+export enum ProficiencyLevel {
+  BEGINNER = 'beginner',
+  INTERMEDIATE = 'intermediate',
+  ADVANCED = 'advanced',
+  EXPERT = 'expert'
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -65,7 +72,7 @@ export interface SkillCategory {
 export interface Skill {
   id: string;
   name: string;
-  proficiency: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  proficiency: ProficiencyLevel;
   yearsOfExperience?: number;
 }
 
