@@ -9,10 +9,19 @@ export const siteConfig = {
   ogImage: '/og-image.jpg',
   profileImage: '', // Add your profile image path here, e.g., '/profile.jpg'
   links: {
-    github: 'https://github.com/yourusername',
+    github: `https://github.com/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}`,
     linkedin: 'https://linkedin.com/in/yourusername',
     twitter: 'https://twitter.com/yourusername',
     email: 'your.email@example.com',
+  },
+  // GitHub integration settings
+  github: {
+    username: process.env.NEXT_PUBLIC_GITHUB_USERNAME || 'yourusername',
+    showForks: false,
+    maxRepos: 6,
+    featuredRepos: ["world_time_app"], // Add repository names you want to feature
+    excludeRepos: ['yourusername', 'yourusername.github.io'], // Repos to exclude from display
+    showPrivateRepos: false, // Only works with GitHub token
   },
 };
 

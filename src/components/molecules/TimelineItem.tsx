@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { TimelineItem as TimelineItemType } from '@/types';
 import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 
@@ -23,7 +23,7 @@ export function TimelineItem({ item, index, isLast, onFocus }: TimelineItemProps
   const isLeft = index % 2 === 0;
   const animationDelay = index * 0.2;
 
-  const toggleExpanded = () => {
+  const toggleExpanded = useCallback(() => {
     setIsExpanded(!isExpanded);
     // Announce state change to screen readers
     const announcement = isExpanded ? 'Collapsed' : 'Expanded';
@@ -34,7 +34,7 @@ export function TimelineItem({ item, index, isLast, onFocus }: TimelineItemProps
     ariaLive.textContent = `${announcement} details for ${item.title}`;
     document.body.appendChild(ariaLive);
     setTimeout(() => document.body.removeChild(ariaLive), 1000);
-  };
+  }, [isExpanded, item.title]);
 
   // Handle keyboard navigation
   useEffect(() => {

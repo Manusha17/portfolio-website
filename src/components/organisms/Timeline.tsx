@@ -131,7 +131,7 @@ interface TimelineItemObserverProps {
 }
 
 function TimelineItemObserver({ item, index, isLast, onFocus }: TimelineItemObserverProps) {
-  const { ref, isIntersecting } = useIntersectionObserver({
+  const { ref } = useIntersectionObserver({
     threshold: 0.3,
     triggerOnce: true,
   });
