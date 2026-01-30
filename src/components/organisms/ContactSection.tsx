@@ -10,14 +10,14 @@ export function ContactSection() {
         <div className="max-w-4xl mx-auto text-center">
           <AnimatedSection direction="up" delay={0}>
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-100 mb-8">
-              Let's Work Together
+              Let&apos;s Work Together
             </h2>
           </AnimatedSection>
           
           <AnimatedSection direction="up" delay={0.2}>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-12 max-w-2xl mx-auto">
-              I'm always interested in new opportunities and interesting projects. 
-              Let's connect and discuss how we can work together.
+              I&apos;m always interested in new opportunities and interesting projects. 
+              Let&apos;s connect and discuss how we can work together.
             </p>
           </AnimatedSection>
           

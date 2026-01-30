@@ -11,7 +11,7 @@ export const siteConfig = {
   links: {
     github: `https://github.com/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}`,
     linkedin: 'https://linkedin.com/in/yourusername',
-    twitter: 'https://twitter.com/yourusername',
+    twitter: 'https://x.com/yourusername',
     email: 'your.email@example.com',
   },
   // GitHub integration settings
@@ -22,6 +22,12 @@ export const siteConfig = {
     featuredRepos: ["world_time_app"], // Add repository names you want to feature
     excludeRepos: ['yourusername', 'yourusername.github.io'], // Repos to exclude from display
     showPrivateRepos: false, // Only works with GitHub token
+  },
+  // Medium integration settings
+  medium: {
+    username: process.env.NEXT_PUBLIC_MEDIUM_USERNAME || 'yourusername',
+    maxArticles: 6,
+    featuredArticles: [], // Add article titles or URLs you want to feature
   },
 };
 

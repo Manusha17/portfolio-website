@@ -137,6 +137,7 @@ export interface MediumArticle {
   description: string;
   guid: string;
   categories: string[];
+  imageUrl?: string;
 }
 
 // SEO and metadata interfaces
