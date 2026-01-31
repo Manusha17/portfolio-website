@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { siteConfig } from '@/data/config';
+import { ChevronRight } from 'lucide-react';
+import { EmailIcon, UserIcon, CodeIcon, CloudIcon, ArrowUpIcon } from '@/components/icons';
 
 export function HeroSection() {
   const [displayedText, setDisplayedText] = useState('');
@@ -87,19 +89,7 @@ export function HeroSection() {
                   className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-transparent bg-slate-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-800 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:outline-none sm:px-8 sm:text-base dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
                 >
                   View My Work
-                  <svg
-                    className="ml-2 h-4 w-4 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
+                  <ChevronRight className="ml-2 h-4 w-4 flex-shrink-0" />
                 </motion.a>
                 <motion.a
                   href="#contact"
@@ -108,19 +98,7 @@ export function HeroSection() {
                   className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-slate-300 bg-white px-6 py-3 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:outline-none sm:px-8 sm:text-base dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
                 >
                   Get In Touch
-                  <svg
-                    className="ml-2 h-4 w-4 flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <EmailIcon className="ml-2 h-4 w-4 flex-shrink-0" />
                 </motion.a>
               </motion.div>
             </motion.div>
@@ -179,13 +157,7 @@ export function HeroSection() {
                     <div className="flex h-full w-full items-center justify-center">
                       <div className="text-center">
                         <div className="xs:w-14 xs:h-14 xs:mb-3 mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-slate-300 sm:mb-4 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24 dark:bg-slate-600">
-                          <svg
-                            className="xs:w-7 xs:h-7 h-6 w-6 text-slate-500 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 dark:text-slate-400"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                          </svg>
+                          <UserIcon className="xs:w-7 xs:h-7 h-6 w-6 text-slate-500 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 dark:text-slate-400" />
                         </div>
                         <p className="text-xs text-slate-500 sm:text-sm dark:text-slate-400">
                           Profile Image
@@ -208,13 +180,7 @@ export function HeroSection() {
                   }}
                   className="xs:top-4 xs:-left-4 xs:w-10 xs:h-10 absolute top-2 -left-2 flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 font-bold text-white opacity-80 shadow-lg sm:top-8 sm:-left-8 sm:h-12 sm:w-12 md:h-16 md:w-16"
                 >
-                  <svg
-                    className="xs:w-5 xs:h-5 h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
-                  </svg>
+                  <CodeIcon className="xs:w-5 xs:h-5 h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8" />
                 </motion.div>
 
                 <motion.div
@@ -226,13 +192,7 @@ export function HeroSection() {
                   }}
                   className="xs:bottom-4 xs:-right-4 xs:w-10 xs:h-10 absolute -right-2 bottom-2 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500 text-white opacity-80 shadow-lg sm:-right-8 sm:bottom-8 sm:h-12 sm:w-12"
                 >
-                  <svg
-                    className="xs:w-5 xs:h-5 h-4 w-4 sm:h-6 sm:w-6"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
-                  </svg>
+                  <CloudIcon className="xs:w-5 xs:h-5 h-4 w-4 sm:h-6 sm:w-6" />
                 </motion.div>
               </div>
             </motion.div>
@@ -277,14 +237,7 @@ export function HeroSection() {
                 transition={{ duration: 2, repeat: Infinity }}
                 className="flex flex-col items-center"
               >
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M7 11l5-5m0 0l5 5m-5-5v12"
-                  />
-                </svg>
+                <ArrowUpIcon className="h-6 w-6" />
               </motion.div>
             </div>
           </motion.button>
