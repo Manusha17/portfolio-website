@@ -3,6 +3,7 @@ import { AboutSection } from '@/components/organisms/AboutSection';
 import { ProjectsSection } from '@/components/organisms/ProjectsSection';
 import { ArticlesSection } from '@/components/organisms/ArticlesSection';
 import { ContactSection } from '@/components/organisms/ContactSection';
+import { Footer } from '@/components/organisms/Footer';
 
 export default function Home() {
   return (
@@ -28,9 +29,12 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="min-h-screen">
+      <section id="contact">
         <ContactSection />
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
