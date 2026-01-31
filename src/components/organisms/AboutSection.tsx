@@ -4,6 +4,7 @@ import { personalInfo, timelineData, skillsData } from '@/data/config';
 import { AnimatedSection } from '@/components/atoms/AnimatedSection';
 import { Timeline } from '@/components/organisms/Timeline';
 import { SkillsShowcase } from '@/components/organisms/SkillsShowcase';
+import { BookUser } from 'lucide-react';
 
 export function AboutSection() {
   return (
@@ -15,8 +16,9 @@ export function AboutSection() {
       <div className="container mx-auto px-6 py-20">
         {/* Introduction */}
         <div className="mx-auto mb-20 max-w-4xl text-center">
-          <AnimatedSection direction="up" delay={0}>
-            <h2 className="mb-8 text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
+          <AnimatedSection direction="up" delay={0} className='mb-6 flex items-center justify-center'>
+             <BookUser className="mr-4 h-12 w-12 text-blue-600 dark:text-blue-400" />
+            <h2 className="text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
               About Me
             </h2>
           </AnimatedSection>

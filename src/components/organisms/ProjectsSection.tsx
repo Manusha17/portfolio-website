@@ -4,7 +4,7 @@ import { AnimatedSection } from '@/components/atoms/AnimatedSection';
 import { ProjectCarousel } from '@/components/molecules/ProjectCarousel';
 import { useGitHubProjects } from '@/lib/hooks/useGitHubProjects';
 import { siteConfig } from '@/data/config';
-import { Loader2, AlertCircle, RefreshCw } from 'lucide-react';
+import { Loader2, AlertCircle, RefreshCw, FolderGit2 } from 'lucide-react';
 
 export function ProjectsSection() {
   const { projects, loading, error, refetch } = useGitHubProjects();
@@ -19,9 +19,12 @@ export function ProjectsSection() {
           {/* Section header */}
           <div className="mb-16 text-center">
             <AnimatedSection direction="up" delay={0}>
-              <h2 className="mb-6 text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
-                Featured Projects
-              </h2>
+              <div className="mb-6 flex items-center justify-center">
+                <FolderGit2 className="mr-4 h-12 w-12 text-blue-600 dark:text-blue-400" />
+                <h2 className="text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
+                  Featured Projects
+                </h2>
+              </div>
             </AnimatedSection>
             <AnimatedSection direction="up" delay={0.2}>
               <p className="mx-auto max-w-2xl text-lg text-slate-600 md:text-xl dark:text-slate-300">

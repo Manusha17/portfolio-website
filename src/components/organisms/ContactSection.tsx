@@ -3,6 +3,7 @@
 import { siteConfig } from '@/data/config';
 import { AnimatedSection } from '@/components/atoms/AnimatedSection';
 import { ContactForm } from '@/components/molecules/ContactForm';
+import { GitPullRequestCreateArrow } from 'lucide-react';
 
 export function ContactSection() {
   return (
@@ -11,8 +12,9 @@ export function ContactSection() {
         <div className="mx-auto max-w-4xl">
           {/* Header Section */}
           <div className="mb-16 text-center">
-            <AnimatedSection direction="up" delay={0}>
-              <h2 className="mb-8 text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
+          <AnimatedSection direction="up" delay={0} className='mb-6 flex items-center justify-center'>
+               <GitPullRequestCreateArrow className="mr-4 h-12 w-12 text-blue-600 dark:text-blue-400" />
+              <h2 className="text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
                 Let&apos;s Work Together
               </h2>
             </AnimatedSection>
