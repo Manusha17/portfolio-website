@@ -18,7 +18,7 @@ export function ArticlesSection() {
       <div className="container mx-auto px-6 py-20">
         <div className="mx-auto max-w-6xl">
           {/* Section header */}
-          <div className="mb-16 text-center">
+          <div className="mb-12 text-center">
             <AnimatedSection direction="up" delay={0}>
               <div className="mb-6 flex items-center justify-center">
                 <BookOpen className="mr-4 h-12 w-12 text-blue-600 dark:text-blue-400" />

@@ -19,7 +19,7 @@ export function ContactSection() {
       <div className="container mx-auto px-6 py-20">
         <div className="mx-auto max-w-4xl">
           {/* Header Section */}
-          <div className="mb-16 text-center">
+          <div className="mb-12 text-center">
             <AnimatedSection
               direction="up"
               delay={0}

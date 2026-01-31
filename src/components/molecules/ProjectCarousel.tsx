@@ -131,7 +131,7 @@ export function ProjectCarousel({ projects, itemsPerView = 3 }: ProjectCarouselP
             <motion.button
               onClick={prevSlide}
               disabled={isAnimating}
-              className="absolute top-1/2 left-0 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-600 shadow-xl backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-slate-900 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-50 md:h-12 md:w-12 lg:-left-6 dark:border-slate-700 dark:bg-slate-800/95 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+              className="absolute top-1/2 left-0 z-20 flex h-10 w-10 max-md:-translate-x-1 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-600 shadow-xl backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-slate-900 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-50 md:h-12 md:w-12 lg:-left-6 dark:border-slate-700 dark:bg-slate-800/95 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Previous projects"
@@ -142,7 +142,7 @@ export function ProjectCarousel({ projects, itemsPerView = 3 }: ProjectCarouselP
             <motion.button
               onClick={nextSlide}
               disabled={isAnimating}
-              className="absolute top-1/2 right-0 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-600 shadow-xl backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-slate-900 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-50 md:h-12 md:w-12 lg:-right-6 dark:border-slate-700 dark:bg-slate-800/95 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+              className="absolute top-1/2 right-0 z-20 flex h-10 w-10 max-md:translate-x-1 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-600 shadow-xl backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-slate-900 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-50 md:h-12 md:w-12 lg:-right-6 dark:border-slate-700 dark:bg-slate-800/95 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Next projects"
