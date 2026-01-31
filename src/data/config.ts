@@ -4,10 +4,30 @@ import { TimelineItem, SkillCategory, ProficiencyLevel } from '@/types';
 export const siteConfig = {
   name: 'Your Name',
   title: 'Software Engineer',
-  description: 'A passionate software engineer building modern web applications',
+  description:
+    'A passionate software engineer building modern web applications with React, Next.js, and TypeScript. Explore my projects, articles, and professional journey.',
   url: 'https://yourusername.github.io',
   ogImage: '/og-image.jpg',
   profileImage: '', // Add your profile image path here, e.g., '/profile.jpg'
+  keywords: [
+    'software engineer',
+    'web developer',
+    'full stack developer',
+    'react developer',
+    'next.js developer',
+    'typescript developer',
+    'frontend developer',
+    'backend developer',
+    'javascript',
+    'portfolio',
+    'web development',
+    'software development',
+  ],
+  author: {
+    name: 'Your Name',
+    email: 'your.email@example.com',
+    url: 'https://yourusername.github.io',
+  },
   links: {
     github: `https://github.com/${process.env.NEXT_PUBLIC_GITHUB_USERNAME}`,
     linkedin: 'https://linkedin.com/in/yourusername',
@@ -28,6 +48,19 @@ export const siteConfig = {
     username: process.env.NEXT_PUBLIC_MEDIUM_USERNAME || 'yourusername',
     maxArticles: 6,
     featuredArticles: [], // Add article titles or URLs you want to feature
+  },
+  // SEO settings
+  seo: {
+    defaultTitle: 'Your Name - Software Engineer',
+    titleTemplate: '%s | Your Name',
+    defaultDescription:
+      'A passionate software engineer building modern web applications with React, Next.js, and TypeScript. Explore my projects, articles, and professional journey.',
+    siteUrl: 'https://yourusername.github.io',
+    defaultImage: '/og-image.jpg',
+    twitterUsername: '@yourusername',
+    facebookAppId: '', // Add if you have one
+    googleSiteVerification: '', // Add your Google verification code
+    bingSiteVerification: '', // Add your Bing verification code
   },
 };
 
