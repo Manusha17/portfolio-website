@@ -74,7 +74,7 @@ export function SkillsShowcase({ skillCategories }: SkillsShowcaseProps) {
   };
 
   return (
-    <div 
+    <div
       ref={ref as React.RefObject<HTMLDivElement>}
       className="mt-16"
       style={{
@@ -83,34 +83,34 @@ export function SkillsShowcase({ skillCategories }: SkillsShowcaseProps) {
         transition: 'all 0.8s ease-out 0.5s',
       }}
     >
-      <div className="text-center mb-12">
-        <h3 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+      <div className="mb-12 text-center">
+        <h3 className="mb-4 text-3xl font-bold text-slate-900 dark:text-slate-100">
           Technical Skills
         </h3>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="mx-auto max-w-2xl text-lg text-slate-600 dark:text-slate-400">
           A comprehensive overview of my technical expertise and proficiency levels
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {skillCategories.map((category, categoryIndex) => (
           <div
             key={category.id}
-            className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-200 dark:border-slate-700"
+            className="rounded-lg border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-800"
             style={{
               opacity: isIntersecting ? 1 : 0,
               transform: isIntersecting ? 'translateY(0)' : 'translateY(20px)',
               transition: `all 0.6s ease-out ${0.8 + categoryIndex * 0.1}s`,
             }}
           >
-            <h4 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-6 text-center">
+            <h4 className="mb-6 text-center text-xl font-semibold text-slate-900 dark:text-slate-100">
               {category.name}
             </h4>
-            
+
             <div className="space-y-4">
               {category.skills.map((skill, skillIndex) => (
                 <div key={skill.id} className="group">
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="mb-2 flex items-center justify-between">
                     <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                       {skill.name}
                     </span>
@@ -118,9 +118,9 @@ export function SkillsShowcase({ skillCategories }: SkillsShowcaseProps) {
                       {getProficiencyLabel(skill.proficiency)}
                     </span>
                   </div>
-                  
-                  <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
-                    <div 
+
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+                    <div
                       className={`h-2 rounded-full transition-all duration-1000 ease-out ${getProficiencyColor(skill.proficiency)}`}
                       style={{
                         width: isIntersecting ? getProficiencyWidth(skill.proficiency) : '0%',
@@ -133,10 +133,11 @@ export function SkillsShowcase({ skillCategories }: SkillsShowcaseProps) {
                       aria-label={`${skill.name} proficiency: ${getProficiencyLabel(skill.proficiency)}`}
                     />
                   </div>
-                  
+
                   {skill.yearsOfExperience && (
-                    <div className="text-xs text-slate-400 dark:text-slate-500 mt-1">
-                      {skill.yearsOfExperience} year{skill.yearsOfExperience !== 1 ? 's' : ''} experience
+                    <div className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+                      {skill.yearsOfExperience} year
+                      {skill.yearsOfExperience !== 1 ? 's' : ''} experience
                     </div>
                   )}
                 </div>
@@ -149,20 +150,28 @@ export function SkillsShowcase({ skillCategories }: SkillsShowcaseProps) {
       {/* Skills legend */}
       <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm">
         <div className="flex items-center">
-          <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-          <span className="text-slate-600 dark:text-slate-400">{getProficiencyLabel(ProficiencyLevel.EXPERT)}</span>
+          <div className="mr-2 h-3 w-3 rounded-full bg-green-500"></div>
+          <span className="text-slate-600 dark:text-slate-400">
+            {getProficiencyLabel(ProficiencyLevel.EXPERT)}
+          </span>
         </div>
         <div className="flex items-center">
-          <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-          <span className="text-slate-600 dark:text-slate-400">{getProficiencyLabel(ProficiencyLevel.ADVANCED)}</span>
+          <div className="mr-2 h-3 w-3 rounded-full bg-blue-500"></div>
+          <span className="text-slate-600 dark:text-slate-400">
+            {getProficiencyLabel(ProficiencyLevel.ADVANCED)}
+          </span>
         </div>
         <div className="flex items-center">
-          <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
-          <span className="text-slate-600 dark:text-slate-400">{getProficiencyLabel(ProficiencyLevel.INTERMEDIATE)}</span>
+          <div className="mr-2 h-3 w-3 rounded-full bg-yellow-500"></div>
+          <span className="text-slate-600 dark:text-slate-400">
+            {getProficiencyLabel(ProficiencyLevel.INTERMEDIATE)}
+          </span>
         </div>
         <div className="flex items-center">
-          <div className="w-3 h-3 bg-gray-500 rounded-full mr-2"></div>
-          <span className="text-slate-600 dark:text-slate-400">{getProficiencyLabel(ProficiencyLevel.BEGINNER)}</span>
+          <div className="mr-2 h-3 w-3 rounded-full bg-gray-500"></div>
+          <span className="text-slate-600 dark:text-slate-400">
+            {getProficiencyLabel(ProficiencyLevel.BEGINNER)}
+          </span>
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@ export function Header() {
       // Update active section based on scroll position
       const sections = ['hero', 'about', 'projects', 'articles', 'contact'];
       const sectionElements = sections.map(id => document.getElementById(id));
-      
+
       for (let i = sections.length - 1; i >= 0; i--) {
         const element = sectionElements[i];
         const sectionId = sections[i];
@@ -43,21 +43,21 @@ export function Header() {
   const scrollToSection = (href: string) => {
     const targetId = href.replace('#', '');
     setIsOpen(false);
-    
+
     if (scrollTimeout.current) {
       clearTimeout(scrollTimeout.current);
     }
-    
+
     // Block scroll listener and set active section immediately
     isProgrammaticScroll.current = true;
     setActiveSection(targetId);
-    
+
     // Small delay to allow menu to close before scrolling
     setTimeout(() => {
       const element = document.getElementById(targetId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
-        
+
         // Re-enable scroll listener after scrolling completes
         scrollTimeout.current = setTimeout(() => {
           isProgrammaticScroll.current = false;
@@ -71,9 +71,9 @@ export function Header() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg'
+          ? 'bg-white/90 shadow-lg backdrop-blur-md dark:bg-slate-900/90'
           : 'bg-transparent'
       }`}
     >
@@ -82,7 +82,7 @@ export function Header() {
           {/* Logo */}
           <motion.button
             onClick={() => scrollToSection('#hero')}
-            className="text-xl font-bold text-slate-900 dark:text-slate-100 hover:text-slate-600 dark:hover:text-slate-300 transition-colors cursor-pointer"
+            className="cursor-pointer text-xl font-bold text-slate-900 transition-colors hover:text-slate-600 dark:text-slate-100 dark:hover:text-slate-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -90,15 +90,15 @@ export function Header() {
           </motion.button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
+          <div className="hidden items-center space-x-8 md:flex">
+            {navigation.map(item => (
               <motion.button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                className={`relative cursor-pointer px-3 py-2 text-sm font-medium transition-colors ${
                   activeSection === item.href.replace('#', '')
                     ? 'text-slate-900 dark:text-slate-100'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
+                    : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -107,7 +107,7 @@ export function Header() {
                 {activeSection === item.href.replace('#', '') && (
                   <motion.div
                     layoutId="activeSection"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-slate-900 dark:bg-slate-100"
+                    className="absolute right-0 bottom-0 left-0 h-0.5 bg-slate-900 dark:bg-slate-100"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -118,18 +118,13 @@ export function Header() {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
+            className="p-2 text-slate-600 transition-colors hover:text-slate-900 md:hidden dark:text-slate-400 dark:hover:text-slate-100"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Toggle mobile menu"
             aria-expanded={isOpen}
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isOpen ? (
                 <path
                   strokeLinecap="round"
@@ -157,17 +152,17 @@ export function Header() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden mt-4 py-4 border-t border-slate-200 dark:border-slate-700"
+              className="mt-4 border-t border-slate-200 py-4 md:hidden dark:border-slate-700"
             >
               <div className="flex flex-col space-y-4">
-                {navigation.map((item) => (
+                {navigation.map(item => (
                   <motion.button
                     key={item.name}
                     onClick={() => scrollToSection(item.href)}
-                    className={`text-left px-3 py-2 text-base font-medium transition-colors ${
+                    className={`px-3 py-2 text-left text-base font-medium transition-colors ${
                       activeSection === item.href.replace('#', '')
-                        ? 'text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-800 rounded-md'
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
+                        ? 'rounded-md bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100'
+                        : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100'
                     }`}
                     whileHover={{ x: 4 }}
                     whileTap={{ scale: 0.95 }}

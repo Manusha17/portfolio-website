@@ -9,7 +9,8 @@ export const MEDIUM_CONFIG = {
   // RSS feed URL pattern
   rssUrl: (username: string) => `https://medium.com/feed/@${username}`,
   // RSS to JSON conversion service (using rss2json.com as fallback)
-  rssToJsonUrl: (rssUrl: string) => `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`,
+  rssToJsonUrl: (rssUrl: string) =>
+    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`,
   // Maximum number of articles to fetch
   maxArticles: siteConfig.medium.maxArticles,
   // Articles to prioritize (will be shown first if they exist)
@@ -38,12 +39,12 @@ class MediumRateLimiter {
   async waitIfNeeded(): Promise<void> {
     const now = Date.now();
     const timeSinceLastRequest = now - this.lastRequest;
-    
+
     if (timeSinceLastRequest < MEDIUM_CONFIG.rateLimitDelay) {
       const waitTime = MEDIUM_CONFIG.rateLimitDelay - timeSinceLastRequest;
       await new Promise(resolve => setTimeout(resolve, waitTime));
     }
-    
+
     this.lastRequest = Date.now();
   }
 }
@@ -78,16 +79,16 @@ interface RSS2JSONResponse {
 // Parse RSS feed using RSS2JSON service
 async function parseRSSFeed(rssUrl: string): Promise<RSS2JSONResponse> {
   const apiUrl = MEDIUM_CONFIG.rssToJsonUrl(rssUrl);
-  
+
   const response = await fetch(apiUrl, {
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'User-Agent': 'Portfolio-Website',
     },
     // Cache for configured timeout
-    next: { 
-      revalidate: MEDIUM_CONFIG.cacheTimeout 
-    }
+    next: {
+      revalidate: MEDIUM_CONFIG.cacheTimeout,
+    },
   });
 
   if (!response.ok) {
@@ -98,12 +99,9 @@ async function parseRSSFeed(rssUrl: string): Promise<RSS2JSONResponse> {
   }
 
   const data = await response.json();
-  
+
   if (data.status !== 'ok') {
-    throw new MediumAPIError(
-      `RSS2JSON API returned error status: ${data.status}`,
-      400
-    );
+    throw new MediumAPIError(`RSS2JSON API returned error status: ${data.status}`, 400);
   }
 
   return data;
@@ -150,7 +148,7 @@ function transformRSSItemToMediumArticle(item: RSS2JSONResponse['items'][0]): Me
     description: extractTextFromHTML(item.description),
     guid: item.guid,
     categories: item.categories || [],
-    imageUrl: extractImageFromDescription(item.description)
+    imageUrl: extractImageFromDescription(item.description),
   };
 }
 
@@ -160,18 +158,20 @@ function transformMediumArticleToArticle(mediumArticle: MediumArticle, content?:
   return {
     id: mediumArticle.guid || mediumArticle.link,
     title: mediumArticle.title,
-    excerpt: mediumArticle.description.length > 200 
-      ? mediumArticle.description.substring(0, 200) + '...'
-      : mediumArticle.description,
+    excerpt:
+      mediumArticle.description.length > 200
+        ? mediumArticle.description.substring(0, 200) + '...'
+        : mediumArticle.description,
     publishedAt: new Date(mediumArticle.pubDate),
     readTime: calculateReadTime(plainTextContent),
     url: mediumArticle.link,
     imageUrl: mediumArticle.imageUrl,
     tags: mediumArticle.categories,
-    featured: MEDIUM_CONFIG.featuredArticles.some((featured: string) => 
-      mediumArticle.title.toLowerCase().includes(featured.toLowerCase()) ||
-      mediumArticle.link.includes(featured)
-    )
+    featured: MEDIUM_CONFIG.featuredArticles.some(
+      (featured: string) =>
+        mediumArticle.title.toLowerCase().includes(featured.toLowerCase()) ||
+        mediumArticle.link.includes(featured)
+    ),
   };
 }
 
@@ -180,14 +180,14 @@ export async function fetchMediumArticles(
   username: string = MEDIUM_CONFIG.username
 ): Promise<MediumArticle[]> {
   let retries = 0;
-  
+
   while (retries < MEDIUM_CONFIG.maxRetries) {
     try {
       await mediumRateLimiter.waitIfNeeded();
-      
+
       const rssUrl = MEDIUM_CONFIG.rssUrl(username);
       const rssData = await parseRSSFeed(rssUrl);
-      
+
       // Transform RSS items to MediumArticle format
       const articles = rssData.items
         .slice(0, MEDIUM_CONFIG.maxArticles * 2) // Get more than needed for filtering
@@ -199,47 +199,44 @@ export async function fetchMediumArticles(
 
       // Sort articles: featured first, then by publication date
       const sortedArticles = articles.sort((a, b) => {
-        const aIsFeatured = MEDIUM_CONFIG.featuredArticles.some((featured: string) => 
-          a.title.toLowerCase().includes(featured.toLowerCase()) ||
-          a.link.includes(featured)
+        const aIsFeatured = MEDIUM_CONFIG.featuredArticles.some(
+          (featured: string) =>
+            a.title.toLowerCase().includes(featured.toLowerCase()) || a.link.includes(featured)
         );
-        const bIsFeatured = MEDIUM_CONFIG.featuredArticles.some((featured: string) => 
-          b.title.toLowerCase().includes(featured.toLowerCase()) ||
-          b.link.includes(featured)
+        const bIsFeatured = MEDIUM_CONFIG.featuredArticles.some(
+          (featured: string) =>
+            b.title.toLowerCase().includes(featured.toLowerCase()) || b.link.includes(featured)
         );
-        
+
         // Featured articles come first
         if (aIsFeatured && !bIsFeatured) return -1;
         if (!aIsFeatured && bIsFeatured) return 1;
-        
+
         // Sort by publication date (newest first)
         return new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime();
       });
 
       // Return only the requested number of articles
       return sortedArticles.slice(0, MEDIUM_CONFIG.maxArticles);
-        
     } catch (error) {
       retries++;
-      
+
       if (error instanceof MediumAPIError) {
         // Don't retry for client errors (4xx)
         if (error.status && error.status >= 400 && error.status < 500) {
           throw error;
         }
       }
-      
+
       if (retries >= MEDIUM_CONFIG.maxRetries) {
         throw error;
       }
-      
+
       // Exponential backoff for retries
-      await new Promise(resolve => 
-        setTimeout(resolve, Math.pow(2, retries) * 1000)
-      );
+      await new Promise(resolve => setTimeout(resolve, Math.pow(2, retries) * 1000));
     }
   }
-  
+
   throw new MediumAPIError('Max retries exceeded');
 }
 
@@ -250,16 +247,18 @@ export async function getArticles(): Promise<Article[]> {
 }
 
 // Utility to check if Medium RSS is available
-export async function checkMediumRSSHealth(username: string = MEDIUM_CONFIG.username): Promise<boolean> {
+export async function checkMediumRSSHealth(
+  username: string = MEDIUM_CONFIG.username
+): Promise<boolean> {
   try {
     const rssUrl = MEDIUM_CONFIG.rssUrl(username);
     const response = await fetch(rssUrl, {
       method: 'HEAD',
       headers: {
-        'User-Agent': 'Portfolio-Website'
-      }
+        'User-Agent': 'Portfolio-Website',
+      },
     });
-    
+
     return response.ok;
   } catch {
     return false;
@@ -269,47 +268,49 @@ export async function checkMediumRSSHealth(username: string = MEDIUM_CONFIG.user
 // Cache management utilities
 export class MediumCache {
   private static cache = new Map<string, { data: Article[]; timestamp: number }>();
-  
+
   static get(key: string): Article[] | null {
     const cached = this.cache.get(key);
     if (!cached) return null;
-    
+
     const isExpired = Date.now() - cached.timestamp > MEDIUM_CONFIG.cacheTimeout * 1000;
     if (isExpired) {
       this.cache.delete(key);
       return null;
     }
-    
+
     return cached.data;
   }
-  
+
   static set(key: string, data: Article[]): void {
     this.cache.set(key, {
       data,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
   }
-  
+
   static clear(): void {
     this.cache.clear();
   }
 }
 
 // Get articles with caching
-export async function getCachedArticles(username: string = MEDIUM_CONFIG.username): Promise<Article[]> {
+export async function getCachedArticles(
+  username: string = MEDIUM_CONFIG.username
+): Promise<Article[]> {
   const cacheKey = `medium-articles-${username}`;
-  
+
   // Try to get from cache first
   const cached = MediumCache.get(cacheKey);
   if (cached) {
     return cached;
   }
-  
+
   // Fetch fresh data
   const articles = await getArticles();
-  
+
   // Cache the results
   MediumCache.set(cacheKey, articles);
-  
+
   return articles;
 }

@@ -19,7 +19,7 @@ export const siteConfig = {
     username: process.env.NEXT_PUBLIC_GITHUB_USERNAME || 'yourusername',
     showForks: false,
     maxRepos: 6,
-    featuredRepos: ["world_time_app"], // Add repository names you want to feature
+    featuredRepos: ['world_time_app'], // Add repository names you want to feature
     excludeRepos: ['yourusername', 'yourusername.github.io'], // Repos to exclude from display
     showPrivateRepos: false, // Only works with GitHub token
   },
@@ -60,12 +60,12 @@ export const timelineData: TimelineItem[] = [
     details: [
       'Relevant coursework: Data Structures, Algorithms, Web Development',
       'Senior project: Built a full-stack web application',
-      'GPA: 3.8/4.0'
+      'GPA: 3.8/4.0',
     ],
     technologies: ['Java', 'Python', 'JavaScript', 'SQL'],
     location: 'City, State',
     icon: 'graduation-cap',
-    color: '#3B82F6'
+    color: '#3B82F6',
   },
   {
     id: '2',
@@ -78,16 +78,13 @@ export const timelineData: TimelineItem[] = [
     details: [
       'Developed responsive web applications using React and Node.js',
       'Collaborated with senior developers on code reviews',
-      'Participated in agile development processes'
+      'Participated in agile development processes',
     ],
     technologies: ['React', 'Node.js', 'TypeScript', 'MongoDB'],
-    achievements: [
-      'Delivered 5+ successful projects',
-      'Improved application performance by 30%'
-    ],
+    achievements: ['Delivered 5+ successful projects', 'Improved application performance by 30%'],
     location: 'City, State',
     icon: 'briefcase',
-    color: '#10B981'
+    color: '#10B981',
   },
   {
     id: '3',
@@ -99,18 +96,18 @@ export const timelineData: TimelineItem[] = [
     details: [
       'Lead development of customer-facing applications',
       'Mentor junior developers and conduct code reviews',
-      'Architect scalable solutions for high-traffic applications'
+      'Architect scalable solutions for high-traffic applications',
     ],
     technologies: ['Next.js', 'TypeScript', 'AWS', 'PostgreSQL'],
     achievements: [
       'Led team of 4 developers',
       'Reduced deployment time by 50%',
-      'Implemented CI/CD pipeline'
+      'Implemented CI/CD pipeline',
     ],
     location: 'City, State',
     icon: 'code',
-    color: '#8B5CF6'
-  }
+    color: '#8B5CF6',
+  },
   // Add more timeline items as needed
 ];
 
@@ -124,33 +121,33 @@ export const skillsData: SkillCategory[] = [
         id: 'react',
         name: 'React',
         proficiency: ProficiencyLevel.ADVANCED,
-        yearsOfExperience: 3
+        yearsOfExperience: 3,
       },
       {
         id: 'nextjs',
         name: 'Next.js',
         proficiency: ProficiencyLevel.ADVANCED,
-        yearsOfExperience: 2
+        yearsOfExperience: 2,
       },
       {
         id: 'typescript',
         name: 'TypeScript',
         proficiency: ProficiencyLevel.ADVANCED,
-        yearsOfExperience: 3
+        yearsOfExperience: 3,
       },
       {
         id: 'tailwind',
         name: 'Tailwind CSS',
         proficiency: ProficiencyLevel.EXPERT,
-        yearsOfExperience: 2
+        yearsOfExperience: 2,
       },
       {
         id: 'javascript',
         name: 'JavaScript',
         proficiency: ProficiencyLevel.EXPERT,
-        yearsOfExperience: 4
-      }
-    ]
+        yearsOfExperience: 4,
+      },
+    ],
   },
   {
     id: 'backend',
@@ -160,27 +157,27 @@ export const skillsData: SkillCategory[] = [
         id: 'nodejs',
         name: 'Node.js',
         proficiency: ProficiencyLevel.ADVANCED,
-        yearsOfExperience: 3
+        yearsOfExperience: 3,
       },
       {
         id: 'python',
         name: 'Python',
         proficiency: ProficiencyLevel.INTERMEDIATE,
-        yearsOfExperience: 2
+        yearsOfExperience: 2,
       },
       {
         id: 'postgresql',
         name: 'PostgreSQL',
         proficiency: ProficiencyLevel.INTERMEDIATE,
-        yearsOfExperience: 2
+        yearsOfExperience: 2,
       },
       {
         id: 'mongodb',
         name: 'MongoDB',
         proficiency: ProficiencyLevel.INTERMEDIATE,
-        yearsOfExperience: 2
-      }
-    ]
+        yearsOfExperience: 2,
+      },
+    ],
   },
   {
     id: 'tools',
@@ -190,26 +187,26 @@ export const skillsData: SkillCategory[] = [
         id: 'git',
         name: 'Git',
         proficiency: ProficiencyLevel.ADVANCED,
-        yearsOfExperience: 4
+        yearsOfExperience: 4,
       },
       {
         id: 'docker',
         name: 'Docker',
         proficiency: ProficiencyLevel.INTERMEDIATE,
-        yearsOfExperience: 1
+        yearsOfExperience: 1,
       },
       {
         id: 'aws',
         name: 'AWS',
         proficiency: ProficiencyLevel.INTERMEDIATE,
-        yearsOfExperience: 1
+        yearsOfExperience: 1,
       },
       {
         id: 'figma',
         name: 'Figma',
         proficiency: ProficiencyLevel.INTERMEDIATE,
-        yearsOfExperience: 2
-      }
-    ]
-  }
+        yearsOfExperience: 2,
+      },
+    ],
+  },
 ];

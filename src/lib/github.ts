@@ -40,12 +40,12 @@ class RateLimiter {
   async waitIfNeeded(): Promise<void> {
     const now = Date.now();
     const timeSinceLastRequest = now - this.lastRequest;
-    
+
     if (timeSinceLastRequest < GITHUB_CONFIG.rateLimitDelay) {
       const waitTime = GITHUB_CONFIG.rateLimitDelay - timeSinceLastRequest;
       await new Promise(resolve => setTimeout(resolve, waitTime));
     }
-    
+
     this.lastRequest = Date.now();
   }
 }
@@ -57,26 +57,26 @@ export async function fetchGitHubRepositories(
   username: string = GITHUB_CONFIG.username
 ): Promise<GitHubRepository[]> {
   let retries = 0;
-  
+
   while (retries < GITHUB_CONFIG.maxRetries) {
     try {
       await rateLimiter.waitIfNeeded();
-      
+
       const response = await fetch(
         `${GITHUB_CONFIG.apiUrl}/users/${username}/repos?sort=updated&per_page=${GITHUB_CONFIG.maxRepos * 2}`,
         {
           headers: {
-            'Accept': 'application/vnd.github.v3+json',
+            Accept: 'application/vnd.github.v3+json',
             'User-Agent': 'Portfolio-Website',
             // Add GitHub token if available for higher rate limits
             ...(process.env.GITHUB_TOKEN && {
-              'Authorization': `token ${process.env.GITHUB_TOKEN}`
-            })
+              Authorization: `token ${process.env.GITHUB_TOKEN}`,
+            }),
           },
           // Cache for 5 minutes in development, 1 hour in production
-          next: { 
-            revalidate: process.env.NODE_ENV === 'development' ? 300 : 3600 
-          }
+          next: {
+            revalidate: process.env.NODE_ENV === 'development' ? 300 : 3600,
+          },
         }
       );
 
@@ -89,14 +89,11 @@ export async function fetchGitHubRepositories(
             rateLimitReset ? parseInt(rateLimitReset) * 1000 : undefined
           );
         }
-        
+
         if (response.status === 404) {
-          throw new GitHubAPIError(
-            `GitHub user '${username}' not found`,
-            response.status
-          );
+          throw new GitHubAPIError(`GitHub user '${username}' not found`, response.status);
         }
-        
+
         throw new GitHubAPIError(
           `GitHub API request failed: ${response.status} ${response.statusText}`,
           response.status
@@ -104,7 +101,7 @@ export async function fetchGitHubRepositories(
       }
 
       const repositories = await response.json();
-      
+
       // Transform and filter GitHub API response
       const filteredRepos = repositories
         .filter((repo: GitHubAPIRepository) => {
@@ -115,78 +112,78 @@ export async function fetchGitHubRepositories(
           // Only include repos with descriptions
           return repo.description;
         })
-        .map((repo: GitHubAPIRepository): GitHubRepository => ({
-          name: repo.name,
-          description: repo.description || '',
-          url: repo.html_url,
-          homepageUrl: repo.homepage || undefined,
-          primaryLanguage: {
-            name: repo.language || 'Unknown',
-            color: getLanguageColor(repo.language)
-          },
-          stargazerCount: repo.stargazers_count || 0,
-          forkCount: repo.forks_count || 0,
-          updatedAt: repo.updated_at,
-          topics: repo.topics || []
-        }));
+        .map(
+          (repo: GitHubAPIRepository): GitHubRepository => ({
+            name: repo.name,
+            description: repo.description || '',
+            url: repo.html_url,
+            homepageUrl: repo.homepage || undefined,
+            primaryLanguage: {
+              name: repo.language || 'Unknown',
+              color: getLanguageColor(repo.language),
+            },
+            stargazerCount: repo.stargazers_count || 0,
+            forkCount: repo.forks_count || 0,
+            updatedAt: repo.updated_at,
+            topics: repo.topics || [],
+          })
+        );
 
       // Sort repositories: featured repos first, then by stars, then by update date
       const sortedRepos = filteredRepos.sort((a: GitHubRepository, b: GitHubRepository) => {
         const aIsFeatured = GITHUB_CONFIG.featuredRepos.includes(a.name);
         const bIsFeatured = GITHUB_CONFIG.featuredRepos.includes(b.name);
-        
+
         // Featured repos come first
         if (aIsFeatured && !bIsFeatured) return -1;
         if (!aIsFeatured && bIsFeatured) return 1;
-        
+
         // If both are featured, sort by the order in featuredRepos array
         if (aIsFeatured && bIsFeatured) {
           const aIndex = GITHUB_CONFIG.featuredRepos.indexOf(a.name);
           const bIndex = GITHUB_CONFIG.featuredRepos.indexOf(b.name);
           return aIndex - bIndex;
         }
-        
+
         // For non-featured repos, sort by stars (descending), then by update date
         if (b.stargazerCount !== a.stargazerCount) {
           return b.stargazerCount - a.stargazerCount;
         }
-        
+
         return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
       });
 
       // Return only the requested number of repos
       return sortedRepos.slice(0, GITHUB_CONFIG.maxRepos);
-        
     } catch (error) {
       retries++;
-      
+
       if (error instanceof GitHubAPIError) {
         // If it's a rate limit error, wait until reset time
         if (error.status === 403 && error.rateLimitReset) {
           const waitTime = error.rateLimitReset - Date.now();
-          if (waitTime > 0 && waitTime < 60000) { // Wait max 1 minute
+          if (waitTime > 0 && waitTime < 60000) {
+            // Wait max 1 minute
             await new Promise(resolve => setTimeout(resolve, waitTime));
             continue;
           }
         }
-        
+
         // Don't retry for client errors (4xx)
         if (error.status && error.status >= 400 && error.status < 500) {
           throw error;
         }
       }
-      
+
       if (retries >= GITHUB_CONFIG.maxRetries) {
         throw error;
       }
-      
+
       // Exponential backoff for retries
-      await new Promise(resolve => 
-        setTimeout(resolve, Math.pow(2, retries) * 1000)
-      );
+      await new Promise(resolve => setTimeout(resolve, Math.pow(2, retries) * 1000));
     }
   }
-  
+
   throw new GitHubAPIError('Max retries exceeded');
 }
 
@@ -204,7 +201,7 @@ export function transformGitHubRepoToProject(repo: GitHubRepository): Project {
     language: repo.primaryLanguage.name,
     featured: GITHUB_CONFIG.featuredRepos.includes(repo.name),
     createdAt: new Date(repo.updatedAt),
-    updatedAt: new Date(repo.updatedAt)
+    updatedAt: new Date(repo.updatedAt),
   };
 }
 
@@ -215,7 +212,7 @@ export async function getProjects(): Promise<Project[]> {
     return repositories.map(transformGitHubRepoToProject);
   } catch (error) {
     console.error('Failed to fetch GitHub repositories:', error);
-    
+
     // Return fallback projects if GitHub API fails
     return getFallbackProjects();
   }
@@ -234,7 +231,7 @@ export function getFallbackProjects(): Project[] {
       language: 'TypeScript',
       featured: true,
       createdAt: new Date('2024-01-01'),
-      updatedAt: new Date('2024-01-01')
+      updatedAt: new Date('2024-01-01'),
     },
     {
       id: 'sample-project-1',
@@ -245,7 +242,7 @@ export function getFallbackProjects(): Project[] {
       language: 'JavaScript',
       featured: false,
       createdAt: new Date('2023-06-01'),
-      updatedAt: new Date('2023-06-01')
+      updatedAt: new Date('2023-06-01'),
     },
     {
       id: 'sample-project-2',
@@ -256,35 +253,35 @@ export function getFallbackProjects(): Project[] {
       language: 'JavaScript',
       featured: false,
       createdAt: new Date('2023-03-01'),
-      updatedAt: new Date('2023-03-01')
-    }
+      updatedAt: new Date('2023-03-01'),
+    },
   ];
 }
 
 // Get programming language colors (GitHub-style)
 function getLanguageColor(language: string | null): string {
   const colors: Record<string, string> = {
-    'JavaScript': '#f1e05a',
-    'TypeScript': '#2b7489',
-    'Python': '#3572A5',
-    'Java': '#b07219',
+    JavaScript: '#f1e05a',
+    TypeScript: '#2b7489',
+    Python: '#3572A5',
+    Java: '#b07219',
     'C++': '#f34b7d',
     'C#': '#239120',
-    'PHP': '#4F5D95',
-    'Ruby': '#701516',
-    'Go': '#00ADD8',
-    'Rust': '#dea584',
-    'Swift': '#ffac45',
-    'Kotlin': '#F18E33',
-    'Dart': '#00B4AB',
-    'HTML': '#e34c26',
-    'CSS': '#1572B6',
-    'Vue': '#2c3e50',
-    'Svelte': '#ff3e00',
-    'Shell': '#89e051',
-    'Dockerfile': '#384d54'
+    PHP: '#4F5D95',
+    Ruby: '#701516',
+    Go: '#00ADD8',
+    Rust: '#dea584',
+    Swift: '#ffac45',
+    Kotlin: '#F18E33',
+    Dart: '#00B4AB',
+    HTML: '#e34c26',
+    CSS: '#1572B6',
+    Vue: '#2c3e50',
+    Svelte: '#ff3e00',
+    Shell: '#89e051',
+    Dockerfile: '#384d54',
   };
-  
+
   return colors[language || ''] || '#6b7280';
 }
 
@@ -293,11 +290,11 @@ export async function checkGitHubAPIHealth(): Promise<boolean> {
   try {
     const response = await fetch(`${GITHUB_CONFIG.apiUrl}/rate_limit`, {
       headers: {
-        'Accept': 'application/vnd.github.v3+json',
-        'User-Agent': 'Portfolio-Website'
-      }
+        Accept: 'application/vnd.github.v3+json',
+        'User-Agent': 'Portfolio-Website',
+      },
     });
-    
+
     return response.ok;
   } catch {
     return false;

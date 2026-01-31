@@ -8,14 +8,8 @@ interface UseIntersectionObserverOptions {
   triggerOnce?: boolean;
 }
 
-export function useIntersectionObserver(
-  options: UseIntersectionObserverOptions = {}
-) {
-  const {
-    threshold = 0.1,
-    rootMargin = '0px',
-    triggerOnce = true,
-  } = options;
+export function useIntersectionObserver(options: UseIntersectionObserverOptions = {}) {
+  const { threshold = 0.1, rootMargin = '0px', triggerOnce = true } = options;
 
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [hasIntersected, setHasIntersected] = useState(false);
@@ -26,7 +20,7 @@ export function useIntersectionObserver(
     if (!element) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         const entry = entries[0];
         if (entry) {
           const isElementIntersecting = entry.isIntersecting;

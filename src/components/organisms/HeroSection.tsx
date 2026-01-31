@@ -25,14 +25,14 @@ export function HeroSection() {
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
             {/* Text Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center lg:text-left order-2 lg:order-1"
+              className="order-2 text-center lg:order-1 lg:text-left"
             >
               {/* Animated Name with Typewriter Effect */}
               <motion.div
@@ -41,7 +41,7 @@ export function HeroSection() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="mb-4 sm:mb-6"
               >
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-slate-100 leading-tight">
+                <h1 className="text-4xl leading-tight font-bold text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl dark:text-slate-100">
                   {displayedText}
                   <motion.span
                     animate={{ opacity: [1, 0, 1] }}
@@ -52,54 +52,74 @@ export function HeroSection() {
                   </motion.span>
                 </h1>
               </motion.div>
-              
+
               {/* Title */}
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-xl sm:text-2xl md:text-3xl text-slate-600 dark:text-slate-300 mb-6 sm:mb-8"
+                className="mb-6 text-xl text-slate-600 sm:mb-8 sm:text-2xl md:text-3xl dark:text-slate-300"
               >
                 {siteConfig.title}
               </motion.h2>
-              
+
               {/* Description */}
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
-                className="text-base sm:text-lg md:text-xl text-slate-500 dark:text-slate-400 mb-8 sm:mb-12 max-w-2xl mx-auto lg:mx-0"
+                className="mx-auto mb-8 max-w-2xl text-base text-slate-500 sm:mb-12 sm:text-lg md:text-xl lg:mx-0 dark:text-slate-400"
               >
                 {siteConfig.description}
               </motion.p>
-              
+
               {/* CTA Buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.0 }}
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
+                className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:justify-start"
               >
                 <motion.a
                   href="#projects"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 text-sm sm:text-base font-medium text-white bg-slate-900 border border-transparent rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200 transition-colors min-h-[44px]"
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-transparent bg-slate-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-800 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:outline-none sm:px-8 sm:text-base dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
                 >
                   View My Work
-                  <svg className="ml-2 w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <svg
+                    className="ml-2 h-4 w-4 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </motion.a>
                 <motion.a
                   href="#contact"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 text-sm sm:text-base font-medium text-slate-700 bg-white border border-slate-300 rounded-md hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-700 transition-colors min-h-[44px]"
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-slate-300 bg-white px-6 py-3 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:outline-none sm:px-8 sm:text-base dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
                 >
                   Get In Touch
-                  <svg className="ml-2 w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <svg
+                    className="ml-2 h-4 w-4 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
                   </svg>
                 </motion.a>
               </motion.div>
@@ -110,40 +130,40 @@ export function HeroSection() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex justify-center lg:justify-end order-1 lg:order-2"
+              className="order-1 flex justify-center lg:order-2 lg:justify-end"
             >
               <div className="relative">
                 {/* Decorative background elements */}
                 <motion.div
-                  animate={{ 
+                  animate={{
                     rotate: [0, 360],
-                    scale: [1, 1.1, 1]
+                    scale: [1, 1.1, 1],
                   }}
-                  transition={{ 
-                    duration: 20, 
+                  transition={{
+                    duration: 20,
                     repeat: Infinity,
-                    ease: "linear"
+                    ease: 'linear',
                   }}
-                  className="absolute -top-1 xs:-top-2 sm:-top-4 -right-1 xs:-right-2 sm:-right-4 w-32 xs:w-40 sm:w-48 md:w-64 lg:w-72 h-32 xs:h-40 sm:h-48 md:h-64 lg:h-72 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 blur-xl"
+                  className="xs:-top-2 xs:-right-2 xs:w-40 xs:h-40 absolute -top-1 -right-1 h-32 w-32 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-20 blur-xl sm:-top-4 sm:-right-4 sm:h-48 sm:w-48 md:h-64 md:w-64 lg:h-72 lg:w-72"
                 />
                 <motion.div
-                  animate={{ 
+                  animate={{
                     rotate: [360, 0],
-                    scale: [1.1, 1, 1.1]
+                    scale: [1.1, 1, 1.1],
                   }}
-                  transition={{ 
-                    duration: 15, 
+                  transition={{
+                    duration: 15,
                     repeat: Infinity,
-                    ease: "linear"
+                    ease: 'linear',
                   }}
-                  className="absolute -bottom-1 xs:-bottom-2 sm:-bottom-4 -left-1 xs:-left-2 sm:-left-4 w-28 xs:w-32 sm:w-40 md:w-56 lg:w-64 h-28 xs:h-32 sm:h-40 md:h-56 lg:h-64 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-20 blur-xl"
+                  className="xs:-bottom-2 xs:-left-2 xs:w-32 xs:h-32 absolute -bottom-1 -left-1 h-28 w-28 rounded-full bg-gradient-to-r from-green-400 to-blue-500 opacity-20 blur-xl sm:-bottom-4 sm:-left-4 sm:h-40 sm:w-40 md:h-56 md:w-56 lg:h-64 lg:w-64"
                 />
-                
+
                 {/* Profile Image Container */}
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="relative z-10 w-48 xs:w-56 sm:w-64 md:w-72 lg:w-80 h-48 xs:h-56 sm:h-64 md:h-72 lg:h-80 rounded-full overflow-hidden border-2 xs:border-4 border-white dark:border-slate-800 shadow-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900"
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  className="xs:w-56 xs:h-56 xs:border-4 relative z-10 h-48 w-48 overflow-hidden rounded-full border-2 border-white bg-gradient-to-br from-slate-100 to-slate-200 shadow-2xl sm:h-64 sm:w-64 md:h-72 md:w-72 lg:h-80 lg:w-80 dark:border-slate-800 dark:from-slate-800 dark:to-slate-900"
                 >
                   {siteConfig.profileImage ? (
                     <Image
@@ -156,17 +176,21 @@ export function HeroSection() {
                     />
                   ) : (
                     /* Placeholder for profile image */
-                    <div className="w-full h-full flex items-center justify-center">
+                    <div className="flex h-full w-full items-center justify-center">
                       <div className="text-center">
-                        <div className="w-12 xs:w-14 sm:w-16 md:w-20 lg:w-24 h-12 xs:h-14 sm:h-16 md:h-20 lg:h-24 mx-auto mb-2 xs:mb-3 sm:mb-4 bg-slate-300 dark:bg-slate-600 rounded-full flex items-center justify-center">
-                          <svg className="w-6 xs:w-7 sm:w-8 md:w-10 lg:w-12 h-6 xs:h-7 sm:h-8 md:h-10 lg:h-12 text-slate-500 dark:text-slate-400" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        <div className="xs:w-14 xs:h-14 xs:mb-3 mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-slate-300 sm:mb-4 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24 dark:bg-slate-600">
+                          <svg
+                            className="xs:w-7 xs:h-7 h-6 w-6 text-slate-500 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 dark:text-slate-400"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                           </svg>
                         </div>
-                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                        <p className="text-xs text-slate-500 sm:text-sm dark:text-slate-400">
                           Profile Image
                         </p>
-                        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                        <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                           Add your photo here
                         </p>
                       </div>
@@ -177,68 +201,89 @@ export function HeroSection() {
                 {/* Floating elements */}
                 <motion.div
                   animate={{ y: [-8, 8, -8] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-2 xs:top-4 sm:top-8 -left-2 xs:-left-4 sm:-left-8 w-8 xs:w-10 sm:w-12 md:w-16 h-8 xs:h-10 sm:h-12 md:h-16 bg-blue-500 rounded-lg opacity-80 flex items-center justify-center text-white font-bold shadow-lg"
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                  className="xs:top-4 xs:-left-4 xs:w-10 xs:h-10 absolute top-2 -left-2 flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500 font-bold text-white opacity-80 shadow-lg sm:top-8 sm:-left-8 sm:h-12 sm:w-12 md:h-16 md:w-16"
                 >
-                  <svg className="w-4 xs:w-5 sm:w-6 md:w-8 h-4 xs:h-5 sm:h-6 md:h-8" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                  <svg
+                    className="xs:w-5 xs:h-5 h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z" />
                   </svg>
                 </motion.div>
-                
+
                 <motion.div
                   animate={{ y: [8, -8, 8] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute bottom-2 xs:bottom-4 sm:bottom-8 -right-2 xs:-right-4 sm:-right-8 w-8 xs:w-10 sm:w-12 h-8 xs:h-10 sm:h-12 bg-purple-500 rounded-full opacity-80 flex items-center justify-center text-white shadow-lg"
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                  className="xs:bottom-4 xs:-right-4 xs:w-10 xs:h-10 absolute -right-2 bottom-2 flex h-8 w-8 items-center justify-center rounded-full bg-purple-500 text-white opacity-80 shadow-lg sm:-right-8 sm:bottom-8 sm:h-12 sm:w-12"
                 >
-                  <svg className="w-4 xs:w-5 sm:w-6 h-4 xs:h-5 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                  <svg
+                    className="xs:w-5 xs:h-5 h-4 w-4 sm:h-6 sm:w-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
                   </svg>
                 </motion.div>
               </div>
             </motion.div>
           </div>
         </div>
-        
+
         {/* Scroll/Swipe indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.4 }}
-          className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 transform sm:bottom-8"
         >
           <motion.button
             onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="flex flex-col items-center text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            className="flex flex-col items-center text-slate-400 transition-colors hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
             aria-label="Scroll to about section"
           >
             {/* Desktop: Scroll Down */}
-            <div className="hidden md:flex flex-col items-center">
-              <span className="text-xs sm:text-sm mb-2">Scroll Down</span>
+            <div className="hidden flex-col items-center md:flex">
+              <span className="mb-2 text-xs sm:text-sm">Scroll Down</span>
               <motion.div
                 animate={{ y: [0, 6, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="w-5 sm:w-6 h-8 sm:h-10 border-2 border-current rounded-full flex justify-center"
+                className="flex h-8 w-5 justify-center rounded-full border-2 border-current sm:h-10 sm:w-6"
               >
                 <motion.div
                   animate={{ y: [0, 10, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="w-1 h-2 sm:h-3 bg-current rounded-full mt-1 sm:mt-2"
+                  className="mt-1 h-2 w-1 rounded-full bg-current sm:mt-2 sm:h-3"
                 />
               </motion.div>
             </div>
-            
+
             {/* Mobile/Tablet: Swipe Up */}
-            <div className="flex md:hidden flex-col items-center">
-              <span className="text-xs mb-2">Swipe Up</span>
+            <div className="flex flex-col items-center md:hidden">
+              <span className="mb-2 text-xs">Swipe Up</span>
               <motion.div
                 animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
                 className="flex flex-col items-center"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 11l5-5m0 0l5 5m-5-5v12"
+                  />
                 </svg>
               </motion.div>
             </div>

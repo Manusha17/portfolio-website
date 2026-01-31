@@ -20,10 +20,13 @@ export function Timeline({ items }: TimelineProps) {
   // Sort items by date (oldest first)
   const sortedItems = [...items].sort((a, b) => a.date.getTime() - b.date.getTime());
 
-  const handleItemFocus = useCallback((itemId: string) => {
-    const index = sortedItems.findIndex(item => item.id === itemId);
-    setFocusedItemIndex(index);
-  }, [sortedItems]);
+  const handleItemFocus = useCallback(
+    (itemId: string) => {
+      const index = sortedItems.findIndex(item => item.id === itemId);
+      setFocusedItemIndex(index);
+    },
+    [sortedItems]
+  );
 
   // Keyboard navigation between timeline items
   useEffect(() => {
@@ -78,11 +81,10 @@ export function Timeline({ items }: TimelineProps) {
   }, [focusedItemIndex, sortedItems]);
 
   return (
-    <div className="relative max-w-6xl mx-auto">
-
+    <div className="relative mx-auto max-w-6xl">
       {/* Timeline container */}
-      <div 
-        ref={(el) => {
+      <div
+        ref={el => {
           if (timelineRef.current) {
             (timelineRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
           }
@@ -93,8 +95,8 @@ export function Timeline({ items }: TimelineProps) {
         aria-label="Career timeline with keyboard navigation support"
       >
         {/* Main timeline line */}
-        <div 
-          className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-slate-300 via-slate-400 to-slate-300 dark:from-slate-600 dark:via-slate-500 dark:to-slate-600 transform -translate-x-1/2 hidden md:block"
+        <div
+          className="absolute top-0 bottom-0 left-1/2 hidden w-0.5 -translate-x-1/2 transform bg-gradient-to-b from-slate-300 via-slate-400 to-slate-300 md:block dark:from-slate-600 dark:via-slate-500 dark:to-slate-600"
           style={{
             opacity: isIntersecting ? 1 : 0,
             transform: isIntersecting ? 'translateX(-50%) scaleY(1)' : 'translateX(-50%) scaleY(0)',
@@ -138,12 +140,7 @@ function TimelineItemObserver({ item, index, isLast, onFocus }: TimelineItemObse
 
   return (
     <div ref={ref as React.RefObject<HTMLDivElement>}>
-      <TimelineItem 
-        item={item} 
-        index={index} 
-        isLast={isLast} 
-        onFocus={onFocus}
-      />
+      <TimelineItem item={item} index={index} isLast={isLast} onFocus={onFocus} />
     </div>
   );
 }

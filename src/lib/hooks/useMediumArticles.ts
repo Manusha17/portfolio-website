@@ -20,12 +20,12 @@ export function useMediumArticles(): UseMediumArticlesReturn {
     try {
       setLoading(true);
       setError(null);
-      
+
       const fetchedArticles = await getCachedArticles();
       setArticles(fetchedArticles);
     } catch (err) {
       console.error('Error fetching Medium articles:', err);
-      
+
       if (err instanceof MediumAPIError) {
         setError(err.message);
       } else {
@@ -45,6 +45,6 @@ export function useMediumArticles(): UseMediumArticlesReturn {
     articles,
     loading,
     error,
-    refetch: fetchArticles
+    refetch: fetchArticles,
   };
 }
