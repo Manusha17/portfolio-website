@@ -23,9 +23,9 @@ export function ContactSection() {
             <AnimatedSection
               direction="up"
               delay={0}
-              className="mb-6 flex items-center justify-center"
+              className="mb-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
             >
-              <GitPullRequestCreateArrow className="mr-4 h-12 w-12 text-blue-600 dark:text-blue-400" />
+              <GitPullRequestCreateArrow className="h-10 w-10 text-blue-600 sm:h-12 sm:w-12 dark:text-blue-400" />
               <h2 className="text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
                 Let&apos;s Work Together
               </h2>

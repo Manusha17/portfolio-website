@@ -21,7 +21,7 @@ export function AboutSection() {
             delay={0}
             className="mb-6 flex items-center justify-center"
           >
-            <BookUser className="mr-4 h-12 w-12 text-blue-600 dark:text-blue-400" />
+            <BookUser className="mr-4 h-10 w-10 text-blue-600 md:h-12 md:w-12 dark:text-blue-400" />
             <h2 className="text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
               About Me
             </h2>

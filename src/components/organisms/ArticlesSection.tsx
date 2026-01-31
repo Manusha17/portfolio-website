@@ -21,7 +21,7 @@ export function ArticlesSection() {
           <div className="mb-12 text-center">
             <AnimatedSection direction="up" delay={0}>
               <div className="mb-6 flex items-center justify-center">
-                <BookOpen className="mr-4 h-12 w-12 text-blue-600 dark:text-blue-400" />
+                <BookOpen className="mr-4 h-10 w-10 text-blue-600 md:h-12 md:w-12 dark:text-blue-400" />
                 <h2 className="text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
                   Latest Articles
                 </h2>
