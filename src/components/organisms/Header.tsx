@@ -125,11 +125,7 @@ export function Header() {
             aria-label="Toggle mobile menu"
             aria-expanded={isOpen}
           >
-            {isOpen ? (
-              <CloseIcon className="h-6 w-6" />
-            ) : (
-              <MenuIcon className="h-6 w-6" />
-            )}
+            {isOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
           </motion.button>
         </div>
 

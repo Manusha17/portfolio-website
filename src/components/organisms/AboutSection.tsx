@@ -16,8 +16,12 @@ export function AboutSection() {
       <div className="container mx-auto px-6 py-20">
         {/* Introduction */}
         <div className="mx-auto mb-20 max-w-4xl text-center">
-          <AnimatedSection direction="up" delay={0} className='mb-6 flex items-center justify-center'>
-             <BookUser className="mr-4 h-12 w-12 text-blue-600 dark:text-blue-400" />
+          <AnimatedSection
+            direction="up"
+            delay={0}
+            className="mb-6 flex items-center justify-center"
+          >
+            <BookUser className="mr-4 h-12 w-12 text-blue-600 dark:text-blue-400" />
             <h2 className="text-4xl font-bold text-slate-900 md:text-5xl dark:text-slate-100">
               About Me
             </h2>

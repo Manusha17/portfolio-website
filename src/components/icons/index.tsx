@@ -78,11 +78,11 @@ interface IconProps extends SVGProps<SVGSVGElement> {
 
 export function Icon({ name, ...props }: IconProps) {
   const IconComponent = iconMap[name];
-  
+
   if (!IconComponent) {
     console.warn(`Icon "${name}" not found`);
     return null;
   }
-  
+
   return <IconComponent {...props} />;
 }
