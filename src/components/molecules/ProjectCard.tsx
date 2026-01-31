@@ -12,14 +12,11 @@ interface ProjectCardProps {
 export function ProjectCard({ project, priority = false }: ProjectCardProps) {
   return (
     <motion.div
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-lg transition-all duration-500 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+      className="group relative flex h-full flex-grow flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-lg transition-all duration-500 hover:shadow-2xl dark:border-slate-700 dark:bg-slate-900"
       whileHover={{
         y: -4,
         transition: { duration: 0.3, ease: 'easeOut' },
       }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       {/* Project header */}
       <div className="mb-4">

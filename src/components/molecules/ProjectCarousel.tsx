@@ -39,14 +39,14 @@ export function ProjectCarousel({ projects, itemsPerView = 3 }: ProjectCarouselP
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentIndex(prev => (prev >= maxIndex ? 0 : prev + 1));
-    setTimeout(() => setIsAnimating(false), 600);
+    setTimeout(() => setIsAnimating(false), 500);
   }, [maxIndex, isAnimating]);
 
   const prevSlide = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentIndex(prev => (prev <= 0 ? maxIndex : prev - 1));
-    setTimeout(() => setIsAnimating(false), 600);
+    setTimeout(() => setIsAnimating(false), 500);
   }, [maxIndex, isAnimating]);
 
   const goToSlide = useCallback(
@@ -54,7 +54,7 @@ export function ProjectCarousel({ projects, itemsPerView = 3 }: ProjectCarouselP
       if (isAnimating || index === currentIndex) return;
       setIsAnimating(true);
       setCurrentIndex(index);
-      setTimeout(() => setIsAnimating(false), 600);
+      setTimeout(() => setIsAnimating(false), 500);
     },
     [currentIndex, isAnimating]
   );
@@ -77,79 +77,85 @@ export function ProjectCarousel({ projects, itemsPerView = 3 }: ProjectCarouselP
     );
   }
 
+  // Calculate card width and gap
+  const cardGap = visibleItems === 1 ? 4 : visibleItems === 2 ? 16 : 32;
+  const cardWidthPercent = 100 / visibleItems;
+
   return (
     <div
-      className="relative mx-auto max-w-7xl py-1"
+      className="relative mx-auto w-full max-w-7xl"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Carousel container with improved spacing */}
-      <div className="relative overflow-hidden px-4 py-3 md:px-8">
-        <motion.div
-          className="flex gap-6 md:gap-8"
-          animate={{
-            x: `calc(-${currentIndex * (100 / visibleItems)}% - ${currentIndex * (32 / visibleItems)}px)`,
-          }}
-          transition={{
-            type: 'spring',
-            stiffness: 200,
-            damping: 25,
-            mass: 0.8,
-            duration: 0.6,
-          }}
-        >
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              className="flex-shrink-0"
-              style={{
-                width: `calc(${100 / visibleItems}% - ${((visibleItems - 1) * 32) / visibleItems}px)`,
-                minHeight: '300px', // Reduced height for more compact cards
-              }}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                delay: index * 0.1,
-                duration: 0.5,
-                ease: 'easeOut',
-              }}
-            >
-              <ProjectCard project={project} priority={index < 3} />
-            </motion.div>
-          ))}
-        </motion.div>
+      {/* Carousel container */}
+      <div className="relative px-4 md:px-8 lg:px-12">
+        {/* Cards container */}
+        <div className="mx-auto max-w-6xl overflow-hidden py-4">
+          <motion.div
+            className="flex"
+            style={{ gap: `${cardGap}px` }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              x: `calc(-${currentIndex * cardWidthPercent}% - ${currentIndex * cardGap}px)`,
+            }}
+            transition={{
+              type: 'spring',
+              stiffness: 300,
+              damping: 30,
+              mass: 0.8,
+            }}
+            initial={{ opacity: 0, scale: 0.9 }}
+          >
+            {projects.map((project, index) => (
+              <div
+                key={project.id}
+                className="flex flex-shrink-0"
+                style={{
+                  width: `calc(${cardWidthPercent}% - ${(cardGap * (visibleItems - 1)) / visibleItems}px)`,
+                }}
+              >
+                <div className="flex flex-grow justify-center">
+                  <div className="h-full w-full max-w-md">
+                    <ProjectCard project={project} priority={index < 3} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
 
-        {/* Enhanced navigation arrows - positioned relative to carousel container */}
+        {/* Navigation arrows */}
         {projects.length > visibleItems && (
           <>
             <motion.button
               onClick={prevSlide}
               disabled={isAnimating}
-              className="absolute top-1/2 left-0 z-20 flex h-12 w-12 -translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white bg-white/95 text-slate-600 shadow-xl backdrop-blur-sm transition-all duration-300 hover:text-slate-900 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:bg-slate-800/95 dark:text-slate-300 dark:hover:text-slate-100"
-              whileHover={{ scale: 1.1, x: -2 }}
+              className="absolute top-1/2 left-0 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-600 shadow-xl backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-slate-900 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-50 md:h-12 md:w-12 lg:-left-6 dark:border-slate-700 dark:bg-slate-800/95 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Previous projects"
             >
-              <ChevronLeft className="h-5 w-5" />
+              <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
             </motion.button>
 
             <motion.button
               onClick={nextSlide}
               disabled={isAnimating}
-              className="absolute top-1/2 right-0 z-20 flex h-12 w-12 translate-x-2 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white bg-white/95 text-slate-600 shadow-xl backdrop-blur-sm transition-all duration-300 hover:text-slate-900 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:bg-slate-800/95 dark:text-slate-300 dark:hover:text-slate-100"
-              whileHover={{ scale: 1.1, x: 2 }}
+              className="absolute top-1/2 right-0 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-slate-600 shadow-xl backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-slate-900 hover:shadow-2xl disabled:cursor-not-allowed disabled:opacity-50 md:h-12 md:w-12 lg:-right-6 dark:border-slate-700 dark:bg-slate-800/95 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Next projects"
             >
-              <ChevronRight className="h-5 w-5" />
+              <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
             </motion.button>
           </>
         )}
       </div>
 
-      {/* Enhanced pagination dots */}
+      {/* Pagination dots */}
       {projects.length > visibleItems && (
-        <div className="mt-8 flex items-center justify-center space-x-3">
+        <div className="mt-10 flex items-center justify-center space-x-3">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <motion.button
               key={index}
@@ -176,7 +182,7 @@ export function ProjectCarousel({ projects, itemsPerView = 3 }: ProjectCarouselP
         </div>
       )}
 
-      {/* Enhanced project counter with progress */}
+      {/* Project counter with progress */}
       <div className="mt-6 text-center">
         <div className="flex items-center justify-center space-x-4">
           <p className="text-sm text-slate-500 dark:text-slate-400">
