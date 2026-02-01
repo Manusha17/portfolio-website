@@ -48,21 +48,28 @@ jobs:
           NEXT_PUBLIC_YAHOO_VERIFICATION: ${{ secrets.NEXT_PUBLIC_YAHOO_VERIFICATION || vars.NEXT_PUBLIC_YAHOO_VERIFICATION }}
 
       - name: List build output
-        run: ls -la
-
-      - name: Check out directory
         run: |
-          if [ -d "out" ]; then
-            echo "out directory exists"
-            ls -la out
+          echo "=== Root directory ==="
+          ls -la
+          echo "=== Checking .next directory ==="
+          if [ -d ".next" ]; then
+            ls -la .next | head -20
           else
-            echo "out directory does not exist"
+            echo ".next directory does not exist"
+          fi
+          echo "=== Checking out directory ==="
+          if [ -d "out" ]; then
+            echo "out directory exists!"
+            ls -la out | head -20
+          else
+            echo "ERROR: out directory does not exist - static export failed"
+            exit 1
           fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: out
 
   deploy:
     environment:
