@@ -31,18 +31,8 @@ jobs:
         run: npm ci
 
       - name: Build with Next.js
-        run: |
-          echo "Checking next.config.ts:"
-          cat next.config.ts
-          echo "Building with NEXT_PUBLIC_BASE_PATH: $NEXT_PUBLIC_BASE_PATH"
-          npm run build
-          echo "Checking if next.config.js was generated:"
-          if [ -f "next.config.js" ]; then
-            echo "next.config.js exists, content:"
-            cat next.config.js
-          fi
+        run: npm run build
         env:
-          GITHUB_ACTIONS: true
           NEXT_PUBLIC_BASE_PATH: ${{ github.repository != format('{0}/{0}.github.io', github.repository_owner) && format('/{0}', github.event.repository.name) || '' }}
           NEXT_PUBLIC_GITHUB_USERNAME: ${{ secrets.NEXT_PUBLIC_GITHUB_USERNAME || vars.NEXT_PUBLIC_GITHUB_USERNAME }}
           NEXT_PUBLIC_MEDIUM_USERNAME: ${{ secrets.NEXT_PUBLIC_MEDIUM_USERNAME || vars.NEXT_PUBLIC_MEDIUM_USERNAME }}
@@ -53,18 +43,9 @@ jobs:
 
       - name: List build output
         run: |
-          echo "=== Root directory ==="
-          ls -la
-          echo "=== Checking .next directory ==="
-          if [ -d ".next" ]; then
-            ls -la .next | head -20
-          else
-            echo ".next directory does not exist"
-          fi
-          echo "=== Checking out directory ==="
           if [ -d "out" ]; then
             echo "out directory exists!"
-            ls -la out | head -20
+            ls -la out
           else
             echo "ERROR: out directory does not exist - static export failed"
             exit 1
