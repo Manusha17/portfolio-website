@@ -40,7 +40,7 @@ jobs:
         run: npm run build
         working-directory: ./portfolio-website
         env:
-          NEXT_PUBLIC_BASE_PATH: ${{ github.event.repository.name != github.event.repository.owner.login && format('/{0}', github.event.repository.name) || '' }}
+          NEXT_PUBLIC_BASE_PATH: ${{ github.repository != format('{0}/{0}.github.io', github.repository_owner) && format('/{0}', github.event.repository.name) || '' }}
           NEXT_PUBLIC_GITHUB_USERNAME: ${{ secrets.NEXT_PUBLIC_GITHUB_USERNAME || vars.NEXT_PUBLIC_GITHUB_USERNAME }}
           NEXT_PUBLIC_MEDIUM_USERNAME: ${{ secrets.NEXT_PUBLIC_MEDIUM_USERNAME || vars.NEXT_PUBLIC_MEDIUM_USERNAME }}
           NEXT_PUBLIC_GOOGLE_VERIFICATION: ${{ secrets.NEXT_PUBLIC_GOOGLE_VERIFICATION || vars.NEXT_PUBLIC_GOOGLE_VERIFICATION }}
