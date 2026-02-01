@@ -1,8 +1,15 @@
 import type { NextConfig } from 'next';
 
+// GitHub Pages configuration
+const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
+  // Configure base path for GitHub Pages (when not using custom domain)
+  basePath: basePath,
+  assetPrefix: basePath,
   images: {
     unoptimized: true,
   },
@@ -19,6 +26,12 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  // GitHub Pages specific configurations
+  ...(isGitHubPages && {
+    swcMinify: true,
+    // Ensure proper routing for GitHub Pages
+    skipTrailingSlashRedirect: true,
+  }),
 };
 
 export default nextConfig;

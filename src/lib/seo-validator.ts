@@ -36,12 +36,12 @@ export function validateSEOConfig(): SEOValidationResult {
   try {
     const manifest = generateWebAppManifest();
     const manifestValidation = validateManifest(manifest);
-    
+
     if (!manifestValidation.isValid) {
       errors.push(...manifestValidation.errors.map(error => `Manifest: ${error}`));
     }
   } catch (error) {
-    errors.push('Failed to generate or validate web app manifest');
+    errors.push(`Failed to generate or validate web app manifest: ${error}`);
   }
 
   // Suggestions for better SEO

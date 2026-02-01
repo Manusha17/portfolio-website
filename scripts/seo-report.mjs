@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 // Simple script to generate SEO configuration report
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 function generateSEOReport() {
   const errors = [];
@@ -41,8 +41,9 @@ function generateSEOReport() {
   placeholderFiles.forEach(file => {
     const filePath = path.join(process.cwd(), file);
     if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath, 'utf8');
-      if (content.includes('Placeholder') || content.includes('#')) {
+      const stats = fs.statSync(filePath);
+      // Check if file is very small (likely placeholder)
+      if (stats.size < 100) {
         suggestions.push(`Replace placeholder file: ${file}`);
       }
     }

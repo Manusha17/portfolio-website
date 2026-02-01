@@ -151,6 +151,7 @@ export interface PersonStructuredData {
   knowsAbout: string[];
   alumniOf?: Organization[];
   worksFor?: Organization[];
+  [key: string]: unknown;
 }
 
 export interface Organization {
@@ -158,3 +159,98 @@ export interface Organization {
   name: string;
   url?: string;
 }
+
+// JSON-LD Structured Data Types
+// These types represent Schema.org structured data for SEO
+
+type JsonLdContext = 'https://schema.org' | string;
+
+interface BaseStructuredData {
+  '@context': JsonLdContext;
+  '@type': string;
+  [key: string]: unknown;
+}
+
+export interface PersonSchema extends BaseStructuredData {
+  '@type': 'Person';
+  name: string;
+  jobTitle?: string;
+  url?: string;
+  sameAs?: string[];
+  knowsAbout?: string[];
+  alumniOf?: Organization[];
+  worksFor?: Organization[];
+  hasOccupation?: unknown;
+  hasCredential?: unknown;
+}
+
+export interface WebSiteSchema extends BaseStructuredData {
+  '@type': 'WebSite';
+  name: string;
+  description?: string;
+  url: string;
+  author?: unknown;
+  potentialAction?: unknown;
+}
+
+export interface OrganizationSchema extends BaseStructuredData {
+  '@type': 'Organization';
+  name: string;
+  url?: string;
+  logo?: string;
+  contactPoint?: unknown;
+  sameAs?: string[];
+}
+
+export interface SoftwareApplicationSchema extends BaseStructuredData {
+  '@type': 'SoftwareApplication';
+  name: string;
+  description?: string;
+  url?: string;
+  applicationCategory?: string;
+  operatingSystem?: string;
+  programmingLanguage?: string[];
+  codeRepository?: string;
+  author?: unknown;
+  dateCreated?: string;
+  dateModified?: string;
+  screenshot?: string;
+}
+
+export interface ArticleSchema extends BaseStructuredData {
+  '@type': 'Article';
+  headline: string;
+  description?: string;
+  url: string;
+  datePublished?: string;
+  author?: unknown;
+  publisher?: unknown;
+  image?: string;
+  keywords?: string[];
+  wordCount?: number;
+  timeRequired?: string;
+}
+
+export interface BreadcrumbListSchema extends BaseStructuredData {
+  '@type': 'BreadcrumbList';
+  itemListElement: unknown[];
+}
+
+export interface FAQPageSchema extends BaseStructuredData {
+  '@type': 'FAQPage';
+  mainEntity: unknown[];
+}
+
+// Union type for all possible structured data schemas
+export type StructuredDataSchema =
+  | PersonSchema
+  | WebSiteSchema
+  | OrganizationSchema
+  | SoftwareApplicationSchema
+  | ArticleSchema
+  | BreadcrumbListSchema
+  | FAQPageSchema
+  | BaseStructuredData;
+
+// Type for the StructuredData component props
+export type StructuredDataInput = StructuredDataSchema | StructuredDataSchema[];

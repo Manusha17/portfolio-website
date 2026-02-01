@@ -1,7 +1,9 @@
 'use client';
 
+import { StructuredDataInput } from '@/types';
+
 interface StructuredDataProps {
-  data: Record<string, any> | Record<string, any>[];
+  data: StructuredDataInput;
 }
 
 export function StructuredData({ data }: StructuredDataProps) {

@@ -1,7 +1,7 @@
 {
   "name": "portfolio-website",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,7 +12,11 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "type-check": "tsc --noEmit",
-    "seo:report": "node scripts/seo-report.js"
+    "seo:report": "node scripts/seo-report.mjs",
+    "build:github": "NEXT_PUBLIC_BASE_PATH=$npm_config_base_path npm run build",
+    "serve": "npx serve out -s",
+    "test:deployment": "node scripts/test-deployment.mjs",
+    "validate:deployment": "node scripts/validate-deployment.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

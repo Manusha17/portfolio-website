@@ -56,6 +56,10 @@ A modern, accessible personal portfolio website built with Next.js, TypeScript, 
 - `npm run format` - Format code with Prettier
 - `npm run format:check` - Check code formatting
 - `npm run type-check` - Run TypeScript type checking
+- `npm run test:deployment` - Test deployment configuration locally
+- `npm run validate:deployment <url>` - Validate deployed site
+- `npm run build:github` - Build with custom base path for GitHub Pages
+- `npm run serve` - Serve built files locally
 
 ## Project Structure
 
@@ -74,11 +78,35 @@ src/
 
 ## Deployment
 
-This project is configured for deployment to GitHub Pages:
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
 
-1. Push your code to GitHub
-2. Enable GitHub Pages in repository settings
-3. The site will automatically build and deploy
+### Quick Setup
+
+1. **Fork or clone this repository**
+2. **Enable GitHub Pages:**
+   - Go to repository Settings → Pages
+   - Set Source to "GitHub Actions"
+3. **Push to main branch** - deployment happens automatically!
+
+### Advanced Configuration
+
+For detailed deployment setup, custom domains, and troubleshooting, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+### Local Testing
+
+Test your deployment configuration before pushing:
+
+```bash
+# Test the complete deployment process
+npm run test:deployment
+
+# Build and serve locally
+npm run build
+npm run serve
+
+# Validate a deployed site
+npm run validate:deployment https://yourusername.github.io/repository-name
+```
 
 ## Customization
 
