@@ -31,25 +31,20 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-        working-directory: ./portfolio-website
 
       - name: Run TypeScript type check
         run: npm run type-check
-        working-directory: ./portfolio-website
 
       - name: Run ESLint
         run: npm run lint
-        working-directory: ./portfolio-website
         continue-on-error: true
 
       - name: Check code formatting
         run: npm run format:check
-        working-directory: ./portfolio-website
         continue-on-error: true
 
       - name: Build project
         run: npm run build
-        working-directory: ./portfolio-website
         env:
           NEXT_PUBLIC_BASE_PATH: /pr-${{ github.event.number }}
           NEXT_PUBLIC_GITHUB_USERNAME: ${{ secrets.NEXT_PUBLIC_GITHUB_USERNAME || vars.NEXT_PUBLIC_GITHUB_USERNAME }}
@@ -63,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pr-build-${{ github.event.number }}
-          path: ./portfolio-website/out
+          path: ./out
           retention-days: 7
 
   preview-deploy:
