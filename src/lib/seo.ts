@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { siteConfig, personalInfo, skillsData } from '@/data/config';
+import { siteConfig, skillsData } from '@/data/config';
 import { PersonStructuredData, Organization } from '@/types';
 
 // Generate comprehensive metadata for pages
@@ -27,14 +27,7 @@ export function generateMetadata({
     title: pageTitle,
     description: pageDescription,
     keywords: [
-      'software engineer',
-      'web developer',
-      'full stack developer',
-      'react developer',
-      'next.js developer',
-      'typescript developer',
-      'frontend developer',
-      'backend developer',
+      ...siteConfig.keywords,
       ...skillsData.flatMap(category => category.skills.map(skill => skill.name.toLowerCase())),
     ],
     authors: [{ name: siteConfig.name }],
