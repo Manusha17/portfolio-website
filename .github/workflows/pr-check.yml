@@ -2,7 +2,7 @@ name: PR Quality Check & Preview
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, master]
     types: [opened, synchronize, reopened]
 
 permissions:
