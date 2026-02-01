@@ -21,7 +21,7 @@ const configPath = join(__dirname, '../src/data/config.ts');
 const configContent = readFileSync(configPath, 'utf-8');
 
 // Extract siteConfig values using regex (simple parsing)
-const extractValue = (key) => {
+const extractValue = key => {
   const regex = new RegExp(`${key}:\\s*['"\`]([^'"\`]+)['"\`]`, 'm');
   const match = configContent.match(regex);
   return match ? match[1] : null;
@@ -29,7 +29,8 @@ const extractValue = (key) => {
 
 const name = extractValue('name') || 'Your Name';
 const title = extractValue('title') || 'Software Engineer';
-const description = extractValue('description') || 'A passionate software engineer building modern web applications.';
+const description =
+  extractValue('description') || 'A passionate software engineer building modern web applications.';
 
 // Generate the manifest
 const manifest = {
