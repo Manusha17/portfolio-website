@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/organisms/Header';
 import { StructuredData } from '@/components/atoms/StructuredData';
+import { ThemeProvider } from '@/components/atoms/ThemeProvider';
+import { ThemeInitScript } from '@/components/atoms/ThemeInitScript';
 import {
   generateMetadata,
   generatePersonStructuredData,
@@ -36,8 +38,9 @@ export default function RootLayout({
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <ThemeInitScript />
         <StructuredData data={[personStructuredData, websiteStructuredData]} />
         <link rel="icon" href={`${basePath}/favicon.ico`} />
         <link rel="apple-touch-icon" sizes="180x180" href={`${basePath}/apple-touch-icon.png`} />
@@ -47,8 +50,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Header />
-        {children}
+        <ThemeProvider>
+          <Header />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

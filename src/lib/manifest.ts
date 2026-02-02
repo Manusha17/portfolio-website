@@ -49,8 +49,8 @@ export function generateWebAppManifest(): WebAppManifest {
     description: siteConfig.description,
     start_url: '/',
     display: 'standalone',
-    background_color: '#000000',
-    theme_color: '#000000',
+    background_color: '#0a0a0a',
+    theme_color: '#0a0a0a',
     orientation: 'portrait-primary',
     scope: '/',
     icons: [
@@ -121,8 +121,8 @@ export function generateWebAppManifest(): WebAppManifest {
 
 // Generate manifest with custom theme colors
 export function generateWebAppManifestWithTheme(
-  backgroundColor: string = '#000000',
-  themeColor: string = '#000000'
+  backgroundColor: string = '#0a0a0a',
+  themeColor: string = '#0a0a0a'
 ): WebAppManifest {
   const manifest = generateWebAppManifest();
   return {

@@ -19,6 +19,8 @@ import { AchievementIcon } from './AchievementIcon';
 import { DefaultTimelineIcon } from './DefaultTimelineIcon';
 import { CheckMarkIcon } from './CheckMarkIcon';
 import { SpinnerIcon } from './SpinnerIcon';
+import { MoonIcon } from './MoonIcon';
+import { SunIcon } from './SunIcon';
 
 // Export individual icons
 export {
@@ -42,6 +44,8 @@ export {
   DefaultTimelineIcon,
   CheckMarkIcon,
   SpinnerIcon,
+  MoonIcon,
+  SunIcon,
 };
 
 // Icon map for dynamic access
@@ -67,6 +71,8 @@ export const iconMap = {
   defaultTimeline: DefaultTimelineIcon,
   checkMark: CheckMarkIcon,
   spinner: SpinnerIcon,
+  moon: MoonIcon,
+  sun: SunIcon,
 } as const;
 
 export type IconName = keyof typeof iconMap;

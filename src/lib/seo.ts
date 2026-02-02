@@ -66,7 +66,7 @@ export function generateMetadata({
 
     // Additional meta tags
     other: {
-      'theme-color': '#000000',
+      'theme-color': '#0a0a0a',
       'color-scheme': 'dark light',
     },
 
