@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { navigation, siteConfig } from '@/data/config';
 import { MenuIcon, CloseIcon } from '@/components/icons';
+import { ThemeSwitcher } from '@/components/atoms/ThemeSwitcher';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -114,19 +115,28 @@ export function Header() {
                 )}
               </motion.button>
             ))}
+
+            {/* Theme Switcher - Desktop */}
+            <ThemeSwitcher />
           </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            onClick={() => setIsOpen(!isOpen)}
-            className="p-2 text-slate-600 transition-colors hover:text-slate-900 md:hidden dark:text-slate-400 dark:hover:text-slate-100"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Toggle mobile menu"
-            aria-expanded={isOpen}
-          >
-            {isOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-          </motion.button>
+          {/* Mobile Controls */}
+          <div className="flex items-center space-x-2 md:hidden">
+            {/* Theme Switcher - Mobile */}
+            <ThemeSwitcher />
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Toggle mobile menu"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+            </motion.button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
