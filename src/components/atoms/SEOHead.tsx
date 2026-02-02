@@ -81,7 +81,7 @@ export function SEOHead({
       )}
 
       {/* Additional Meta Tags */}
-      <meta name="theme-color" content="#000000" />
+      <meta name="theme-color" content="#0a0a0a" />
       <meta name="color-scheme" content="dark light" />
 
       {/* Verification Tags */}

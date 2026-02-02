@@ -39,8 +39,8 @@ const manifest = {
   description: description,
   start_url: '/',
   display: 'standalone',
-  background_color: '#000000',
-  theme_color: '#000000',
+  background_color: '#0a0a0a',
+  theme_color: '#0a0a0a',
   orientation: 'portrait-primary',
   scope: '/',
   icons: [
