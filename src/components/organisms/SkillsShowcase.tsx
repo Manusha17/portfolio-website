@@ -100,7 +100,7 @@ export function SkillsShowcase({ skillCategories }: SkillsShowcaseProps) {
             style={{
               opacity: isIntersecting ? 1 : 0,
               transform: isIntersecting ? 'translateY(0)' : 'translateY(20px)',
-              transition: `all 0.6s ease-out ${0.8 + categoryIndex * 0.1}s`,
+              transition: `opacity 0.6s ease-out ${0.8 + categoryIndex * 0.1}s, transform 0.6s ease-out ${0.8 + categoryIndex * 0.1}s, background-color 0.3s ease ${categoryIndex * 0.05}s, border-color 0.3s ease ${categoryIndex * 0.05}s`,
             }}
           >
             <h4 className="mb-6 text-center text-xl font-semibold text-slate-900 dark:text-slate-100">
