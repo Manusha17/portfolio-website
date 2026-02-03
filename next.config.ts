@@ -28,7 +28,6 @@ const nextConfig: NextConfig = {
   },
   // GitHub Pages specific configurations
   ...(isGitHubPages && {
-    swcMinify: true,
     // Ensure proper routing for GitHub Pages
     skipTrailingSlashRedirect: true,
   }),

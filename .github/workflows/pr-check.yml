@@ -27,6 +27,16 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
       - name: Install dependencies
         run: npm ci
 
@@ -67,7 +77,7 @@ jobs:
         with:
           name: pr-build-${{ github.event.number }}
           path: out
-          retention-days: 2
+          retention-days: 3
 
       - name: Comment PR with status
         uses: actions/github-script@v7
@@ -94,7 +104,7 @@ jobs:
             - **Formatting:** Check the Actions tab for details
 
             ### 📦 Build Artifacts
-            Build artifacts have been uploaded and are available for 7 days.
+            Build artifacts have been uploaded and are available for 3 days.
 
             ---
             *This check runs automatically on every push to the PR.*`;
