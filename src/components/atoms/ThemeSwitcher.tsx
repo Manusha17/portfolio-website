@@ -15,7 +15,7 @@ export function ThemeSwitcher() {
   return (
     <motion.button
       onClick={toggleTheme}
-      className="relative p-2 text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
+      className="relative cursor-pointer p-2 text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
