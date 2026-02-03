@@ -27,9 +27,9 @@ export function AnimatedSection({
       case 'down':
         return { opacity: 0, y: -40 };
       case 'left':
-        return { opacity: 0, x: 40 };
+        return { opacity: 0, x: 15 };
       case 'right':
-        return { opacity: 0, x: -40 };
+        return { opacity: 0, x: -15 };
       case 'fade':
       default:
         return { opacity: 0 };

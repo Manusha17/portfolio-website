@@ -1,0 +1,18 @@
+# Cache Next.js static assets for 1 year (content-hashed, immutable)
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache fonts for 1 year (content-hashed by Next.js)
+/_next/static/media/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache CSS and JS chunks for 1 year (content-hashed by Next.js)
+/_next/static/chunks/*.css
+  Cache-Control: public, max-age=31536000, immutable
+/_next/static/chunks/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML files - no cache, always revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+

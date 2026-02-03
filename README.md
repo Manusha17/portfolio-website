@@ -5,7 +5,7 @@ A modern, accessible personal portfolio website built with Next.js, TypeScript, 
 ## Features
 
 - 🚀 **Next.js 14+** with App Router and Static Site Generation
-- 🎨 **Tailwind CSS** for responsive design and styling
+- 🎨 **Tailwind CSS** for responsive design and styling with light and dark theme
 - 📱 **Fully Responsive** - works on mobile, tablet, and desktop
 - ♿ **Accessibility First** - WCAG 2.1 AA compliant
 - 🔍 **SEO Optimized** with meta tags and structured data
@@ -68,6 +68,7 @@ src/
 ├── app/                 # Next.js app directory
 ├── components/          # React components
 │   ├── atoms/          # Basic UI components
+|   ├── icons/          # SVG icon components
 │   ├── molecules/      # Simple component combinations
 │   ├── organisms/      # Complex UI sections
 │   └── templates/      # Page layouts
