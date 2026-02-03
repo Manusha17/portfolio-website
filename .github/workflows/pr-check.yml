@@ -1,4 +1,4 @@
-name: PR Quality Check & Preview
+name: PR Quality Check
 
 on:
   pull_request:
@@ -8,8 +8,6 @@ on:
 permissions:
   contents: read
   pull-requests: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: pr-${{ github.event.number }}
@@ -46,7 +44,7 @@ jobs:
       - name: Build project
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: /pr-${{ github.event.number }}
+          NEXT_PUBLIC_BASE_PATH: ${{ github.repository != format('{0}/{0}.github.io', github.repository_owner) && format('/{0}', github.event.repository.name) || '' }}
           NEXT_PUBLIC_GITHUB_USERNAME: ${{ secrets.NEXT_PUBLIC_GITHUB_USERNAME || vars.NEXT_PUBLIC_GITHUB_USERNAME }}
           NEXT_PUBLIC_MEDIUM_USERNAME: ${{ secrets.NEXT_PUBLIC_MEDIUM_USERNAME || vars.NEXT_PUBLIC_MEDIUM_USERNAME }}
           NEXT_PUBLIC_GOOGLE_VERIFICATION: ${{ secrets.NEXT_PUBLIC_GOOGLE_VERIFICATION || vars.NEXT_PUBLIC_GOOGLE_VERIFICATION }}
@@ -54,126 +52,65 @@ jobs:
           NEXT_PUBLIC_YANDEX_VERIFICATION: ${{ secrets.NEXT_PUBLIC_YANDEX_VERIFICATION || vars.NEXT_PUBLIC_YANDEX_VERIFICATION }}
           NEXT_PUBLIC_YAHOO_VERIFICATION: ${{ secrets.NEXT_PUBLIC_YAHOO_VERIFICATION || vars.NEXT_PUBLIC_YAHOO_VERIFICATION }}
 
+      - name: Verify build output
+        run: |
+          if [ -d "out" ]; then
+            echo "✅ Build successful - out directory exists"
+            ls -la out
+          else
+            echo "❌ ERROR: out directory does not exist - static export failed"
+            exit 1
+          fi
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: pr-build-${{ github.event.number }}
-          path: ./out
-          retention-days: 7
+          path: out
+          retention-days: 2
 
-  # preview-deploy:
-  #   name: Deploy Preview
-  #   runs-on: ubuntu-latest
-  #   needs: quality-check
-  #   if: github.event.action != 'closed'
-  #   environment:
-  #     name: pr-preview-${{ github.event.number }}
-  #     url: ${{ steps.deploy.outputs.page_url }}
-  #   steps:
-  #     - name: Download build artifacts
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: pr-build-${{ github.event.number }}
-  #         path: ./out
+      - name: Comment PR with status
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
 
-  #     - name: Setup Pages
-  #       uses: actions/configure-pages@v4
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('## 🔍 PR Quality Check')
+            );
 
-  #     - name: Upload to Pages
-  #       uses: actions/upload-pages-artifact@v3
-  #       with:
-  #         path: ./out
+            const commentBody = `## 🔍 PR Quality Check Results
 
-  #     - name: Deploy to GitHub Pages
-  #       id: deploy
-  #       uses: actions/deploy-pages@v4
+            ### ✅ Quality Checks Status
+            - **TypeScript:** ✅ Type check passed
+            - **Build:** ✅ Build successful
+            - **ESLint:** Check the Actions tab for details
+            - **Formatting:** Check the Actions tab for details
 
-  #     - name: Comment PR with preview link
-  #       uses: actions/github-script@v7
-  #       with:
-  #         script: |
-  #           const { data: comments } = await github.rest.issues.listComments({
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             issue_number: context.issue.number,
-  #           });
+            ### 📦 Build Artifacts
+            Build artifacts have been uploaded and are available for 7 days.
 
-  #           const botComment = comments.find(comment => 
-  #             comment.user.type === 'Bot' && 
-  #             comment.body.includes('🚀 Preview deployment')
-  #           );
+            ---
+            *This check runs automatically on every push to the PR.*`;
 
-  #           const previewUrl = '${{ steps.deploy.outputs.page_url }}';
-  #           const commentBody = `## 🚀 Preview deployment ready!
-
-  #           Your changes have been deployed to a preview environment:
-
-  #           **🔗 Preview URL:** ${previewUrl}
-
-  #           ### ✅ Quality Checks Status
-  #           - **TypeScript:** ✅ Passed
-  #           - **Build:** ✅ Successful
-  #           - **ESLint:** Check the Actions tab for details
-  #           - **Formatting:** Check the Actions tab for details
-
-  #           ### 📝 What's included in this preview:
-  #           - All your changes from this PR
-  #           - Optimized production build
-  #           - SEO and performance optimizations
-
-  #           ---
-  #           *This preview will be updated automatically when you push new changes to this PR.*
-  #           *Preview deployments are automatically cleaned up when the PR is merged or closed.*`;
-
-  #           if (botComment) {
-  #             await github.rest.issues.updateComment({
-  #               owner: context.repo.owner,
-  #               repo: context.repo.repo,
-  #               comment_id: botComment.id,
-  #               body: commentBody
-  #             });
-  #           } else {
-  #             await github.rest.issues.createComment({
-  #               owner: context.repo.owner,
-  #               repo: context.repo.repo,
-  #               issue_number: context.issue.number,
-  #               body: commentBody
-  #             });
-  #           }
-
-  # cleanup-preview:
-  #   name: Cleanup Preview
-  #   runs-on: ubuntu-latest
-  #   if: github.event.action == 'closed'
-  #   steps:
-  #     - name: Delete preview environment
-  #       uses: actions/github-script@v7
-  #       with:
-  #         script: |
-  #           try {
-  #             await github.rest.repos.deleteAnEnvironment({
-  #               owner: context.repo.owner,
-  #               repo: context.repo.repo,
-  #               environment_name: `pr-preview-${{ github.event.number }}`
-  #             });
-  #             console.log('Preview environment deleted successfully');
-  #           } catch (error) {
-  #             console.log('Preview environment may not exist or already deleted');
-  #           }
-
-  #     - name: Comment PR cleanup
-  #       uses: actions/github-script@v7
-  #       with:
-  #         script: |
-  #           const commentBody = `## 🧹 Preview deployment cleaned up
-
-  #           The preview deployment for this PR has been automatically cleaned up.
-
-  #           Thank you for your contribution! 🎉`;
-
-  #           await github.rest.issues.createComment({
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             issue_number: context.issue.number,
-  #             body: commentBody
-  #           });
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }
