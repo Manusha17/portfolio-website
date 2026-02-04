@@ -80,6 +80,8 @@ export function ProjectCarousel({ projects, itemsPerView = 3 }: ProjectCarouselP
   // Calculate card width and gap
   const cardGap = visibleItems === 1 ? 4 : visibleItems === 2 ? 16 : 32;
   const cardWidthPercent = 100 / visibleItems;
+  const gapAdjustment =
+    visibleItems === 1 ? cardGap : (cardGap * (visibleItems - 1)) / visibleItems;
 
   return (
     <div
@@ -97,7 +99,10 @@ export function ProjectCarousel({ projects, itemsPerView = 3 }: ProjectCarouselP
             animate={{
               opacity: 1,
               scale: 1,
-              x: `calc(-${currentIndex * cardWidthPercent}% - ${currentIndex * cardGap}px)`,
+              x:
+                visibleItems === 1
+                  ? `calc(-${currentIndex * cardWidthPercent}% - ${currentIndex * gapAdjustment}px)`
+                  : `calc(-${currentIndex * cardWidthPercent}% - ${currentIndex * (gapAdjustment * 0.5)}px)`,
             }}
             transition={{
               type: 'spring',
@@ -112,7 +117,10 @@ export function ProjectCarousel({ projects, itemsPerView = 3 }: ProjectCarouselP
                 key={project.id}
                 className="flex flex-shrink-0"
                 style={{
-                  width: `calc(${cardWidthPercent}% - ${(cardGap * (visibleItems - 1)) / visibleItems}px)`,
+                  width:
+                    visibleItems === 1
+                      ? `${cardWidthPercent}%`
+                      : `calc(${cardWidthPercent}% - ${gapAdjustment}px)`,
                 }}
               >
                 <div className="flex flex-grow justify-center">

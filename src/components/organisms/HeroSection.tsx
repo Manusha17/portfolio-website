@@ -25,8 +25,8 @@ export function HeroSection() {
   }, [currentIndex, fullText]);
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative flex min-h-screen items-center justify-center bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <div className="container mx-auto overflow-x-clip px-4 sm:px-6 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
             {/* Text Content */}
@@ -89,7 +89,7 @@ export function HeroSection() {
                   className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-transparent bg-slate-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-800 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:outline-none sm:px-8 sm:text-base dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
                 >
                   View My Work
-                  <ChevronRight className="ml-2 h-4 w-4 flex-shrink-0" />
+                  <ChevronRight className="ml-2 h-4 w-4 shrink-0" />
                 </motion.a>
                 <motion.a
                   href="#contact"
@@ -98,7 +98,7 @@ export function HeroSection() {
                   className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-slate-300 bg-white px-6 py-3 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:outline-none sm:px-8 sm:text-base dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
                 >
                   Get In Touch
-                  <EmailIcon className="ml-2 h-4 w-4 flex-shrink-0" />
+                  <EmailIcon className="ml-2 h-4 w-4 shrink-0" />
                 </motion.a>
               </motion.div>
             </motion.div>
@@ -122,7 +122,7 @@ export function HeroSection() {
                     repeat: Infinity,
                     ease: 'linear',
                   }}
-                  className="xs:-top-2 xs:-right-2 xs:w-40 xs:h-40 absolute -top-1 -right-1 h-32 w-32 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-20 blur-xl sm:-top-4 sm:-right-4 sm:h-48 sm:w-48 md:h-64 md:w-64 lg:h-72 lg:w-72"
+                  className="xs:-top-2 xs:-right-2 xs:w-40 xs:h-40 absolute -top-1 -right-1 h-32 w-32 rounded-full bg-linear-to-r from-blue-400 to-purple-500 opacity-20 blur-xl sm:-top-4 sm:-right-4 sm:h-48 sm:w-48 md:h-56 md:w-56 xl:h-72 xl:w-72"
                 />
                 <motion.div
                   animate={{
@@ -134,14 +134,14 @@ export function HeroSection() {
                     repeat: Infinity,
                     ease: 'linear',
                   }}
-                  className="xs:-bottom-2 xs:-left-2 xs:w-32 xs:h-32 absolute -bottom-1 -left-1 h-28 w-28 rounded-full bg-gradient-to-r from-green-400 to-blue-500 opacity-20 blur-xl sm:-bottom-4 sm:-left-4 sm:h-40 sm:w-40 md:h-56 md:w-56 lg:h-64 lg:w-64"
+                  className="xs:-bottom-2 xs:-left-2 xs:w-32 xs:h-32 absolute -bottom-1 -left-1 h-28 w-28 rounded-full bg-linear-to-r from-green-400 to-blue-500 opacity-20 blur-xl sm:-bottom-4 sm:-left-4 sm:h-40 sm:w-40 md:h-56 md:w-56 lg:h-64 lg:w-64"
                 />
 
                 {/* Profile Image Container */}
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  className="xs:w-56 xs:h-56 xs:border-4 relative z-10 h-48 w-48 overflow-hidden rounded-full border-2 border-white bg-gradient-to-br from-slate-100 to-slate-200 shadow-2xl sm:h-64 sm:w-64 md:h-72 md:w-72 lg:h-80 lg:w-80 dark:border-slate-800 dark:from-slate-800 dark:to-slate-900"
+                  className="xs:w-56 xs:h-56 xs:border-4 relative z-10 h-48 w-48 overflow-hidden rounded-full border-2 border-white bg-linear-to-br from-slate-100 to-slate-200 shadow-2xl sm:h-64 sm:w-64 md:h-72 md:w-72 lg:h-80 lg:w-80 dark:border-slate-800 dark:from-slate-800 dark:to-slate-900"
                 >
                   {siteConfig.profileImage ? (
                     <Image

@@ -97,7 +97,6 @@ export const timelineData: TimelineItem[] = [
     ],
     technologies: ['Java', 'Python', 'JavaScript', 'SQL'],
     location: 'City, State',
-    icon: 'graduation-cap',
     color: '#3B82F6',
   },
   {
@@ -116,7 +115,6 @@ export const timelineData: TimelineItem[] = [
     technologies: ['React', 'Node.js', 'TypeScript', 'MongoDB'],
     achievements: ['Delivered 5+ successful projects', 'Improved application performance by 30%'],
     location: 'City, State',
-    icon: 'briefcase',
     color: '#10B981',
   },
   {
@@ -138,7 +136,6 @@ export const timelineData: TimelineItem[] = [
       'Implemented CI/CD pipeline',
     ],
     location: 'City, State',
-    icon: 'code',
     color: '#8B5CF6',
   },
   // Add more timeline items as needed
