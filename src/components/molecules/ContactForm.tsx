@@ -86,15 +86,30 @@ export function ContactForm() {
     setIsSubmitting(true);
 
     try {
-      // For now, we'll simulate form submission
-      // In a real implementation, you would send this to your backend or email service
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const formDataToSend = new FormData();
+      formDataToSend.append('access_key', process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || '');
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('subject', formData.subject);
+      formDataToSend.append('message', formData.message);
 
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        console.error('Form submission error:', data);
+        alert('Failed to send message. Please try again.');
+      }
     } catch (error) {
       console.error('Form submission error:', error);
-      // Handle error - could show error message to user
+      alert('Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -115,7 +130,7 @@ export function ContactForm() {
           </p>
           <button
             onClick={() => setIsSubmitted(false)}
-            className="font-medium text-green-600 transition-colors hover:text-green-800 dark:text-green-400 dark:hover:text-green-200"
+            className="cursor-pointer font-medium text-green-600 transition-colors hover:text-green-800 dark:text-green-400 dark:hover:text-green-200"
           >
             Send Another Message
           </button>

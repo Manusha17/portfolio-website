@@ -15,7 +15,7 @@ export function AboutSection() {
     >
       <div className="container mx-auto px-6 py-20">
         {/* Introduction */}
-        <div className="mx-auto mb-20 max-w-4xl text-center">
+        <div className="mx-auto mb-10 max-w-4xl text-center">
           <AnimatedSection
             direction="up"
             delay={0}
@@ -28,7 +28,7 @@ export function AboutSection() {
           </AnimatedSection>
 
           <AnimatedSection direction="up" delay={0.2}>
-            <div className="mx-auto mb-12 max-w-3xl text-lg text-slate-600 md:text-xl dark:text-slate-300">
+            <div className="mx-auto max-w-3xl text-lg text-slate-600 md:text-xl dark:text-slate-300">
               <p className="mb-6">{personalInfo.bio}</p>
               <p className="text-slate-500 dark:text-slate-400">
                 Currently based in {personalInfo.location} and{' '}

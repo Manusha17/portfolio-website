@@ -164,7 +164,7 @@ export function TimelineItem({ item, index, isLast, onFocus }: TimelineItemProps
           aria-describedby={`timeline-item-${item.id}-description`}
           aria-label={`${getTypeLabel(item.type)}: ${item.title} at ${item.subtitle}. ${isExpanded ? 'Press Enter to collapse' : 'Press Enter to expand'} details.`}
         >
-          <div className="mb-3 flex items-center justify-between">
+          <div className="mb-3 flex items-center justify-between gap-2">
             <div className={`flex items-center ${isLeft ? 'md:flex-row-reverse' : 'flex-row'}`}>
               <div
                 className="mr-3 flex-shrink-0 rounded-full p-2 text-white md:mr-0"
@@ -184,7 +184,7 @@ export function TimelineItem({ item, index, isLast, onFocus }: TimelineItemProps
               </div>
             </div>
             <div
-              className={`flex-shrink-0 text-sm text-slate-500 dark:text-slate-400 ${isLeft ? 'md:text-left' : 'md:text-right'}`}
+              className={`flex-shrink text-sm text-slate-500 dark:text-slate-400 ${isLeft ? 'md:text-left' : 'md:text-right'}`}
             >
               <time dateTime={item.date.toISOString()}>{formatDate(item.date, item.endDate)}</time>
               {item.location && <div className="mt-1 text-xs">{item.location}</div>}
@@ -224,14 +224,12 @@ export function TimelineItem({ item, index, isLast, onFocus }: TimelineItemProps
             >
               {item.details && (
                 <div className="mb-4">
-                  <h4 className="mb-2 text-sm font-medium text-slate-900 dark:text-slate-100">
+                  <h4 className="mb-2 text-left text-sm font-medium text-slate-900 dark:text-slate-100">
                     Details:
                   </h4>
-                  <ul
-                    className={`space-y-1 text-sm text-slate-600 dark:text-slate-400 ${isLeft ? 'md:text-right' : 'text-left'}`}
-                  >
+                  <ul className={`space-y-1 text-sm text-slate-600 dark:text-slate-400`}>
                     {item.details.map((detail, detailIndex) => (
-                      <li key={detailIndex} className="flex items-start">
+                      <li key={detailIndex} className="flex">
                         <span className="mr-2 text-slate-400" aria-hidden="true">
                           •
                         </span>
@@ -244,14 +242,12 @@ export function TimelineItem({ item, index, isLast, onFocus }: TimelineItemProps
 
               {item.achievements && (
                 <div>
-                  <h4 className="mb-2 text-sm font-medium text-slate-900 dark:text-slate-100">
+                  <h4 className="mb-2 text-left text-sm font-medium text-slate-900 dark:text-slate-100">
                     Achievements:
                   </h4>
-                  <ul
-                    className={`space-y-1 text-sm text-slate-600 dark:text-slate-400 ${isLeft ? 'md:text-right' : 'text-left'}`}
-                  >
+                  <ul className={`space-y-1 text-sm text-slate-600 dark:text-slate-400`}>
                     {item.achievements.map((achievement, achievementIndex) => (
-                      <li key={achievementIndex} className="flex items-start">
+                      <li key={achievementIndex} className="flex">
                         <span className="mr-2 text-green-500" aria-hidden="true">
                           ✓
                         </span>
