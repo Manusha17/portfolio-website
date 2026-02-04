@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { siteConfig } from '@/data/config';
 import { ChevronRight } from 'lucide-react';
 import { EmailIcon, UserIcon, CodeIcon, CloudIcon, ArrowUpIcon } from '@/components/icons';
@@ -144,13 +143,12 @@ export function HeroSection() {
                   className="xs:w-56 xs:h-56 xs:border-4 relative z-10 h-48 w-48 overflow-hidden rounded-full border-2 border-white bg-linear-to-br from-slate-100 to-slate-200 shadow-2xl sm:h-64 sm:w-64 md:h-72 md:w-72 lg:h-80 lg:w-80 dark:border-slate-800 dark:from-slate-800 dark:to-slate-900"
                 >
                   {siteConfig.profileImage ? (
-                    <Image
+                    <img
                       src={siteConfig.profileImage}
                       alt={`${siteConfig.name} - Profile Photo`}
-                      fill
-                      className="object-cover"
-                      priority
-                      sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 320px"
+                      className="h-full w-full object-cover"
+                      loading="eager"
+                      fetchPriority="high"
                     />
                   ) : (
                     /* Placeholder for profile image */
