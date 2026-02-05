@@ -2,6 +2,8 @@
 
 A modern, accessible personal portfolio website built with Next.js, TypeScript, and Tailwind CSS. Designed to showcase projects, articles, and professional experience with optimal performance and accessibility.
 
+See how it looks with actual data: https://manusha17.github.io/
+
 ## Features
 
 - 🚀 **Next.js 14+** with App Router and Static Site Generation
