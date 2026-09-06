@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Article } from '@/types';
 import { ExternalLink, Clock, Calendar } from 'lucide-react';
-import { BookIcon } from '@/components/icons';
+import { BookIcon, MediumIcon, DevToIcon } from '@/components/icons';
 
 interface ArticleCardProps {
   article: Article;
@@ -37,12 +37,36 @@ export function ArticleCard({ article, priority = false }: ArticleCardProps) {
             <h3 className="line-clamp-2 text-xl leading-tight font-bold text-slate-900 transition-colors duration-300 group-hover:text-blue-600 dark:text-slate-100 dark:group-hover:text-blue-400">
               {article.title}
             </h3>
-            {/* Featured badge */}
-            {article.featured && (
-              <div className="mt-2 inline-block rounded-full bg-gradient-to-r from-green-500 to-emerald-600 px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
-                Featured
-              </div>
-            )}
+            {/* Featured badge and source badge */}
+            <div className="mt-2 flex items-center gap-2">
+              {article.featured && (
+                <div className="inline-block rounded-full bg-gradient-to-r from-green-500 to-emerald-600 px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
+                  Featured
+                </div>
+              )}
+              {/* Source badge */}
+              {article.source && (
+                <div
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold shadow-md ${
+                    article.source === 'medium'
+                      ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900'
+                      : 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-800'
+                  }`}
+                >
+                  {article.source === 'medium' ? (
+                    <>
+                      <MediumIcon className="h-3 w-3" />
+                      <span>Medium</span>
+                    </>
+                  ) : (
+                    <>
+                      <DevToIcon className="h-3 w-3" />
+                      <span>Dev.to</span>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

@@ -2,13 +2,13 @@
 
 import { AnimatedSection } from '@/components/atoms/AnimatedSection';
 import { ArticleCard } from '@/components/molecules/ArticleCard';
-import { useMediumArticles } from '@/lib/hooks/useMediumArticles';
+import { useArticles } from '@/lib/hooks/useArticles';
 import { siteConfig } from '@/data/config';
 import { Loader2, AlertCircle, RefreshCw, BookOpen } from 'lucide-react';
-import { MediumIcon } from '@/components/icons';
+import { MediumIcon, DevToIcon } from '@/components/icons';
 
 export function ArticlesSection() {
-  const { articles, loading, error, refetch } = useMediumArticles();
+  const { articles, loading, error, refetch, sources } = useArticles();
 
   return (
     <section
@@ -40,9 +40,7 @@ export function ArticlesSection() {
             {loading ? (
               <div className="flex flex-col items-center justify-center py-24">
                 <Loader2 className="mb-6 h-10 w-10 animate-spin text-blue-600 dark:text-blue-400" />
-                <p className="text-lg text-slate-600 dark:text-slate-300">
-                  Loading articles from Medium...
-                </p>
+                <p className="text-lg text-slate-600 dark:text-slate-300">Loading articles...</p>
               </div>
             ) : error ? (
               <div className="flex flex-col items-center justify-center py-24">
@@ -83,19 +81,32 @@ export function ArticlesSection() {
             )}
           </AnimatedSection>
 
-          {/* Medium profile link */}
+          {/* Platform profile links */}
           {articles.length > 0 && (
             <AnimatedSection direction="up" delay={0.6}>
-              <div className="mt-12 text-center">
-                <a
-                  href={`https://medium.com/@${siteConfig.medium.username}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 text-slate-600 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
-                >
-                  <span>Read more articles on Medium</span>
-                  <MediumIcon className="h-5 w-5" />
-                </a>
+              <div className="mt-12 flex flex-wrap items-center justify-center gap-6">
+                {sources.includes('medium') && siteConfig.medium?.username && (
+                  <a
+                    href={`https://medium.com/@${siteConfig.medium.username}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-2 text-slate-600 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
+                  >
+                    <span>Read more on Medium</span>
+                    <MediumIcon className="h-5 w-5" />
+                  </a>
+                )}
+                {sources.includes('devto') && siteConfig.devto?.username && (
+                  <a
+                    href={`https://dev.to/${siteConfig.devto.username}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-2 text-slate-600 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
+                  >
+                    <span>Read more on Dev.to</span>
+                    <DevToIcon className="h-5 w-5" />
+                  </a>
+                )}
               </div>
             </AnimatedSection>
           )}

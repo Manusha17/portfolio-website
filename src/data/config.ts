@@ -5,10 +5,10 @@ export const siteConfig = {
   name: 'Your Name',
   title: 'Software Engineer',
   description:
-    'A passionate software engineer building modern web applications with React, Next.js, and TypeScript. Explore my projects, articles, and professional journey.',
+    'A passionate software engineer building modern web applications. Explore my projects, articles, and professional journey.',
   url: 'https://yourusername.github.io',
   ogImage: '/og-image.jpg',
-  profileImage: '', // Add your profile image path here, e.g., '/profile.jpg'
+  profileImage: '/profile-image.webp', // Add your profile image path here, e.g., '/profile.jpg'
   keywords: [
     'software engineer',
     'web developer',
@@ -48,6 +48,19 @@ export const siteConfig = {
     username: process.env.NEXT_PUBLIC_MEDIUM_USERNAME || 'yourusername',
     maxArticles: 6,
     featuredArticles: [], // Add article titles or URLs you want to feature
+  },
+  // Dev.to integration settings
+  devto: {
+    username: process.env.NEXT_PUBLIC_DEVTO_USERNAME || '',
+    maxArticles: 6,
+    featuredArticles: [], // Add article titles or URLs you want to feature
+  },
+  // Articles section configuration
+  articles: {
+    sources: {
+      medium: true, // Enable/disable Medium as article source
+      devto: true, // Enable/disable Dev.to as article source
+    },
   },
   // SEO settings
   seo: {
