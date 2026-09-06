@@ -34,6 +34,7 @@ export interface Article {
   imageUrl?: string;
   tags: string[];
   featured: boolean;
+  source?: 'medium' | 'devto'; // Article source platform
 }
 
 export interface TimelineItem {
@@ -138,6 +139,22 @@ export interface MediumArticle {
   guid: string;
   categories: string[];
   imageUrl?: string;
+}
+
+// Dev.to API interfaces
+export interface DevToArticle {
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+  published_at: string;
+  published_timestamp: string;
+  tag_list: string[];
+  tags: string;
+  cover_image: string | null;
+  social_image: string;
+  reading_time_minutes: number;
+  slug: string;
 }
 
 // SEO and metadata interfaces

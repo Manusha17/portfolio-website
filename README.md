@@ -13,7 +13,8 @@ See how it looks with actual data: https://manusha17.github.io/
 - 🔍 **SEO Optimized** with meta tags and structured data
 - 🎭 **Smooth Animations** with Framer Motion
 - 📊 **GitHub Integration** - automatically fetch and display repositories
-- 📝 **Medium Integration** - display published articles
+- 📝 **Medium Integration** - display published articles from Medium
+- 📝 **Dev.to Integration** - display published articles from Dev.to
 - 🚀 **GitHub Pages Ready** - optimized for static deployment
 
 ## Tech Stack
@@ -113,10 +114,49 @@ npm run validate:deployment https://yourusername.github.io/repository-name
 
 ## Customization
 
-1. Update personal information in `src/data/config.ts`
-2. Add your projects and experience data
-3. Customize colors and styling in `src/app/globals.css`
-4. Configure GitHub and Medium integration
+### Personal Information
+
+Update personal information in `src/data/config.ts`:
+
+- Basic profile information (name, title, bio)
+- Social media links
+- Skills and experience data
+- Timeline items (education, work, achievements)
+
+### Article Sources Configuration
+
+Configure which article sources to use in `src/data/config.ts`:
+
+```typescript
+articles: {
+  sources: {
+    medium: true,  // Enable/disable Medium articles
+    devto: true,   // Enable/disable Dev.to articles
+  },
+},
+```
+
+### Environment Variables
+
+Create a `.env.local` file with your configuration:
+
+```bash
+# GitHub username (required for projects section)
+NEXT_PUBLIC_GITHUB_USERNAME=yourusername
+
+# Medium username (optional, for Medium articles)
+NEXT_PUBLIC_MEDIUM_USERNAME=your_medium_username
+
+# Dev.to username (optional, for Dev.to articles)
+NEXT_PUBLIC_DEVTO_USERNAME=your_devto_username
+
+# Web3Forms access key (required for contact form)
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your_access_key
+```
+
+### Styling
+
+Customize colors and styling in `src/app/globals.css` and Tailwind configuration.
 
 ## License
 
