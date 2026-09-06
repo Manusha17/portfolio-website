@@ -2,9 +2,10 @@
 
 import { personalInfo, timelineData, skillsData } from '@/data/config';
 import { AnimatedSection } from '@/components/atoms/AnimatedSection';
+import { AvailabilityBadge } from '@/components/molecules/AvailabilityBadge';
 import { Timeline } from '@/components/organisms/Timeline';
 import { SkillsShowcase } from '@/components/organisms/SkillsShowcase';
-import { BookUser } from 'lucide-react';
+import { BookUser, MapPin } from 'lucide-react';
 
 export function AboutSection() {
   return (
@@ -28,12 +29,18 @@ export function AboutSection() {
           </AnimatedSection>
 
           <AnimatedSection direction="up" delay={0.2}>
-            <div className="mx-auto max-w-3xl text-lg text-slate-600 md:text-xl dark:text-slate-300">
-              <p className="mb-6">{personalInfo.bio}</p>
-              <p className="text-slate-500 dark:text-slate-400">
-                Currently based in {personalInfo.location} and{' '}
-                {personalInfo.availability.toLowerCase()}.
-              </p>
+            <div className="mx-auto max-w-3xl text-left text-lg text-slate-600 md:text-xl dark:text-slate-300">
+              <p>{personalInfo.bio}</p>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection direction="up" delay={0.3}>
+            <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                <MapPin className="h-4 w-4 text-slate-400 dark:text-slate-500" />
+                <span>{personalInfo.location}</span>
+              </div>
+              <AvailabilityBadge label={personalInfo.availability} color="green" />
             </div>
           </AnimatedSection>
         </div>
